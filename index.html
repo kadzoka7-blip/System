@@ -634,13 +634,44 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
   let lastX=0,lastY=0,lastZ=0;
   let sensorActive=false;
   let permissionRequested=false;
+  let shakeCount=Number(localStorage.getItem('gulse_system_shake_count')||0);
+  let secretFound=localStorage.getItem('gulse_system_shake_secret')==='1';
   const threshold=18;
   const cooldown=650;
+  const requiredShakes=10;
+
+  function stopMotion(){
+    if(!sensorActive) return;
+    window.removeEventListener('devicemotion',handleMotion);
+    sensorActive=false;
+  }
+
+  function revealHiddenMessage(){
+    if(secretFound) return;
+    secretFound=true;
+    localStorage.setItem('gulse_system_shake_secret','1');
+    localStorage.setItem('gulse_system_shake_count',String(requiredShakes));
+    stopMotion();
+    app.classList.remove('system-shake');
+    flash?.classList.remove('active');
+    badge?.classList.remove('show');
+    if(typeof window.beep==='function'){
+      window.beep(880,.10,'sine',.018);
+      setTimeout(()=>window.beep(1175,.12,'sine',.016),120);
+    }
+    if(typeof window.showReward==='function'){
+      window.showReward('GİZLİ MESAJ', 'Tebrikler gizli mesajı buldunuz. Telefonunu artık sallama lütfen ..');
+    }else if(typeof window.showToast==='function'){
+      window.showToast('TEBRİKLER • GİZLİ MESAJI BULDUNUZ');
+    }
+  }
 
   function triggerShake(strength=1){
     const now=Date.now();
-    if(now-lastTrigger<cooldown) return;
+    if(secretFound || now-lastTrigger<cooldown) return;
     lastTrigger=now;
+    shakeCount=Math.min(requiredShakes,shakeCount+1);
+    localStorage.setItem('gulse_system_shake_count',String(shakeCount));
     app.classList.remove('system-shake');
     void app.offsetWidth;
     app.classList.add('system-shake');
@@ -650,6 +681,9 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
     if(badge){void badge.offsetWidth;badge.classList.add('show');}
     if(typeof window.showToast==='function') window.showToast('SİSTEM HAREKETİ ALGILANDI');
     if(typeof window.beep==='function') window.beep(610,.05,'triangle',.01);
+    if(shakeCount>=requiredShakes){
+      setTimeout(revealHiddenMessage,320);
+    }
   }
 
   function handleMotion(e){
@@ -666,6 +700,7 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
   }
 
   function enableMotion(){
+    if(secretFound) return false;
     if(sensorActive) return true;
     window.addEventListener('devicemotion',handleMotion,{passive:true});
     sensorActive=true;
@@ -689,11 +724,11 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
   // iPhone/iPad gibi izin isteyen cihazlarda ilk kullanıcı dokunuşunda iste.
   document.addEventListener('pointerdown',requestMotion,{once:true,passive:true});
   // Android / izin istemeyen cihazlarda doğrudan dinlemeyi başlat.
-  if(typeof DeviceMotionEvent.requestPermission!=='function') enableMotion();
+  if(!secretFound && typeof DeviceMotionEvent.requestPermission!=='function') enableMotion();
 
   // Sensör destekleniyorsa kilit ekranından geri dönüşte tekrar bağlanmayı dene.
   document.addEventListener('visibilitychange',()=>{
-    if(!document.hidden && !sensorActive) requestMotion();
+    if(!document.hidden && !sensorActive && !secretFound) requestMotion();
   });
 })();
 </script>

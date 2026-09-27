@@ -93,6 +93,66 @@ button,a,input{cursor:none}
 .pageSummary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:12px}.summaryCard{padding:13px;border:1px solid rgba(105,202,255,.12);background:linear-gradient(145deg,rgba(8,19,32,.83),rgba(3,9,16,.75));position:relative;overflow:hidden}.summaryCard::after{content:"";position:absolute;right:-20px;bottom:-25px;width:80px;height:80px;border:1px solid rgba(104,213,255,.08);transform:rotate(45deg)}.summaryLabel{font-size:7px;color:#5c7790;letter-spacing:.16em}.summaryValue{font-size:23px;font-weight:900;margin-top:5px}.summaryValue.cyan{color:var(--cyan)}.summaryValue.gold{color:var(--gold)}.summaryValue.green{color:var(--green)}.summarySub{font-size:7px;color:#4f6b84;margin-top:3px}.profileIdentity{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:15px}.identityMini{padding:10px;border:1px solid rgba(104,204,255,.1);background:rgba(4,12,21,.58)}.identityMini small{display:block;color:#526f88;font-size:7px;letter-spacing:.13em}.identityMini b{display:block;color:#a6cee2;font-size:9px;margin-top:4px}.rankMeter{margin-top:14px;padding:12px;border:1px solid rgba(104,204,255,.1);background:rgba(3,11,19,.55)}.rankMeterTop{display:flex;justify-content:space-between;color:#6c879d;font-size:7px;letter-spacing:.12em}.rankMeterTop b{color:var(--cyan)}
 @media(max-width:620px){.pageSummary{grid-template-columns:1fr 1fr}.profileIdentity{grid-template-columns:1fr 1fr}}
 
+
+/* === GELİŞMİŞ SİSTEM KATMANI === */
+::selection{background:rgba(89,212,255,.22);color:#fff}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#02060d}::-webkit-scrollbar-thumb{background:linear-gradient(#0a4168,#153c5d);border:1px solid rgba(130,226,255,.18)}
+.app{position:relative;z-index:3;perspective:1200px}
+.fxCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.78;mix-blend-mode:screen}
+.systemFlash{position:fixed;inset:0;z-index:300;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 50%,rgba(116,227,255,.18),transparent 32%),linear-gradient(180deg,transparent 0 49.5%,rgba(147,238,255,.6) 50%,transparent 50.5%);mix-blend-mode:screen}
+.systemFlash.active{animation:systemFlash .7s cubic-bezier(.2,.8,.2,1)}
+body::before{animation:gridBreathe 9s ease-in-out infinite}
+body::after{animation:scanMove 8s linear infinite}
+.topbar{box-shadow:0 10px 36px rgba(0,0,0,.22)}
+.brand{transition:transform .35s ease}.brand:hover{transform:translateX(2px)}
+.logoCore{animation:logoFramePulse 3s ease-in-out infinite}
+.logoCore .logoGlyph{animation:logoPulse 2s ease-in-out infinite,logoFlicker 5s linear infinite}
+.logoCore::before{animation:logoSpin 5.5s linear infinite,logoRingPulse 2.7s ease-in-out infinite}
+.logoCore::after{animation:logoScan 1.7s ease-in-out infinite}
+.audioControl{overflow:visible}.audioControl.active{border-color:rgba(115,222,255,.74);box-shadow:0 0 28px rgba(58,202,255,.23),inset 0 0 22px rgba(71,208,255,.09)}
+.musicGlyph{font-size:17px;color:#94b5ca;line-height:1;transition:.2s}.audioControl.active .musicGlyph{color:#dffaff;text-shadow:0 0 13px rgba(103,231,255,.85)}
+.musicBars{position:absolute;right:5px;bottom:5px;display:flex;align-items:end;gap:1px;height:7px;width:9px;opacity:0;transition:.2s}.audioControl.active .musicBars{opacity:1}.musicBars i{display:block;width:1px;background:var(--cyan);box-shadow:0 0 5px var(--cyan);animation:musicBar .75s ease-in-out infinite}.musicBars i:nth-child(1){height:3px}.musicBars i:nth-child(2){height:7px;animation-delay:.15s}.musicBars i:nth-child(3){height:5px;animation-delay:.3s}.musicBars i:nth-child(4){height:2px;animation-delay:.45s}
+.page.active{animation:pageInPro .58s cubic-bezier(.16,.84,.22,1)}
+.page.active::before{content:"";display:block;position:absolute;left:0;right:0;height:1px;top:80px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.08;animation:pageScan .8s ease}
+.card{transform:translateZ(0);transition:transform .32s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .3s}
+.card:hover{transform:translateY(-3px) translateZ(4px);border-color:rgba(106,207,255,.27);box-shadow:0 18px 50px rgba(0,0,0,.3),0 0 26px rgba(55,183,255,.055)}
+.card::after{content:"";position:absolute;inset:-1px;background:linear-gradient(115deg,transparent 18%,rgba(160,240,255,.08) 50%,transparent 82%);transform:translateX(-120%);transition:transform .65s ease;pointer-events:none}.card:hover::after{transform:translateX(120%)}
+.hero{box-shadow:0 30px 100px rgba(0,0,0,.55),0 0 70px rgba(33,157,255,.055)}
+.hero::before{animation:heroSweep 7s ease-in-out infinite}
+.levelHUD{box-shadow:0 0 35px rgba(64,194,255,.07),inset 0 0 25px rgba(61,184,255,.035)}
+.levelHUD:hover{box-shadow:0 0 60px rgba(64,194,255,.14),inset 0 0 25px rgba(61,184,255,.05)}
+.questAction,.btn,.filterBtn,.icon,.questCheck,.avatarAction,.close,.shopDetailsBtn{position:relative;overflow:hidden}
+.btn::before,.questAction::before,.filterBtn::before,.icon::before,.questCheck::before,.shopDetailsBtn::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 34%,rgba(220,250,255,.16) 50%,transparent 66%);transform:translateX(-140%);transition:transform .5s ease}.btn:hover::before,.questAction:hover::before,.filterBtn:hover::before,.icon:hover::before,.questCheck:hover::before,.shopDetailsBtn:hover::before{transform:translateX(140%)}
+.bottom{box-shadow:0 -20px 60px rgba(0,0,0,.35)}
+.navBtn{overflow:hidden}.navBtn::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(135,232,255,.05) 50%,transparent 70%);transform:translateX(-130%)}.navBtn:hover::after{animation:navSweep .55s ease}
+.toast{backdrop-filter:blur(16px)}
+.reward.show .rewardBox{animation:rewardInPro .75s cubic-bezier(.12,.88,.18,1)}
+.bootScreen::before{animation:bootAura 5s ease-in-out infinite}.bootGrid{filter:drop-shadow(0 0 12px rgba(71,192,255,.08))}
+.bootMark{animation:bootPulsePro 2.6s ease-in-out infinite}
+.bootTitle{animation:titleFlicker 5s linear infinite}
+.bootLine{letter-spacing:.01em}
+.identityPanel{box-shadow:0 0 120px rgba(30,160,255,.21),0 30px 100px rgba(0,0,0,.75)}
+.identityPanel h2{animation:identityTextGlow 3.2s ease-in-out infinite}
+.identityPanel::after{animation:identitySweep 2.6s ease-in-out infinite}
+@keyframes gridBreathe{0%,100%{opacity:.08}50%{opacity:.12}}
+@keyframes scanMove{to{transform:translateY(8px)}}
+@keyframes logoFramePulse{50%{box-shadow:0 0 46px rgba(50,167,255,.36),inset 0 0 25px rgba(94,211,255,.18)}}
+@keyframes logoRingPulse{50%{opacity:.72}}
+@keyframes logoFlicker{0%,93%,100%{opacity:1}94%{opacity:.55}95%{opacity:1}}
+@keyframes musicBar{0%,100%{transform:scaleY(.55);opacity:.65}50%{transform:scaleY(1);opacity:1}}
+@keyframes pageInPro{0%{opacity:0;transform:translateY(20px) scale(.985) rotateX(1.5deg);filter:blur(8px)}55%{opacity:1}100%{opacity:1;transform:none;filter:none}}
+@keyframes pageScan{0%{transform:translateX(-30%);opacity:0}45%{opacity:.25}100%{transform:translateX(30%);opacity:0}}
+@keyframes heroSweep{0%,35%{transform:translateX(-120%);opacity:0}45%{opacity:1}50%,85%,100%{transform:translateX(120%);opacity:0}}
+@keyframes navSweep{to{transform:translateX(130%)}}
+@keyframes systemFlash{0%{opacity:0;transform:scale(1.02)}22%{opacity:.8}100%{opacity:0;transform:scale(1)}}
+@keyframes rewardInPro{0%{opacity:0;transform:scale(.72) translateY(18px);filter:blur(8px)}48%{opacity:1;transform:scale(1.02) translateY(0);filter:none}100%{transform:scale(1)}}
+@keyframes bootAura{50%{background:radial-gradient(circle at 50% 38%,rgba(55,175,255,.25),transparent 30%),linear-gradient(180deg,rgba(2,8,16,.98),rgba(0,3,8,1))}}
+@keyframes bootPulsePro{0%,100%{transform:scale(1);box-shadow:0 0 80px rgba(36,169,255,.25),inset 0 0 34px rgba(88,211,255,.2)}50%{transform:scale(1.035);box-shadow:0 0 115px rgba(36,169,255,.38),inset 0 0 46px rgba(88,211,255,.28)}}
+@keyframes titleFlicker{0%,88%,100%{opacity:1}89%{opacity:.78}90%{opacity:1}}
+@keyframes identityTextGlow{50%{text-shadow:0 0 24px rgba(106,220,255,.16)}}
+@media(max-width:720px){.fxCanvas{opacity:.55}.card:hover{transform:none}.page.active::before{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}
+
 </style>
 </head>
 <body>
@@ -119,6 +179,9 @@ button,a,input{cursor:none}
 </div>
 <div class="systemCursor" id="systemCursor"><div class="ring"></div><div class="h"></div><div class="v"></div><div class="core"></div></div>
 <div class="particles" id="particles"></div><div class="cornerHUD"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+<canvas id="fxCanvas" class="fxCanvas" aria-hidden="true"></canvas>
+<div class="systemFlash" id="systemFlash" aria-hidden="true"></div>
+<audio id="systemMusic" src="system-theme.wav" loop preload="auto"></audio>
 <div class="app">
 <header class="topbar">
   <div class="brand">
@@ -127,6 +190,7 @@ button,a,input{cursor:none}
   </div>
   <div class="topActions">
     <button class="icon" id="resetBtn" title="Sistemi sıfırla">↻</button>
+    <button class="icon audioControl" id="musicToggle" title="Sistem müziğini aç / kapat" aria-label="Sistem müziğini aç / kapat"><span class="musicGlyph">♪</span><span class="musicBars"><i></i><i></i><i></i><i></i></span></button>
     <button class="icon" id="profileBtn" title="Profil"><span id="topAvatarFallback">◉</span><img id="topAvatarImg" alt="Profil" style="display:none"></button>
   </div>
 </header>
@@ -385,6 +449,87 @@ document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('T�
 /* gelişmiş sistem imleci */
 const cursor=document.getElementById('systemCursor');let cursorTimer;window.addEventListener('mousemove',e=>{cursor.style.transform=`translate3d(${e.clientX}px,${e.clientY}px,0) translate(-50%,-50%)`;cursor.classList.add('ready');clearTimeout(cursorTimer);cursorTimer=setTimeout(()=>cursor.classList.remove('ready'),3000)});window.addEventListener('mousedown',()=>{cursor.classList.add('click');setTimeout(()=>cursor.classList.remove('click'),150)});
 makeParticles();render();liveClock();setInterval(liveClock,1000);document.getElementById('identityStart').addEventListener('click',confirmIdentity);document.getElementById('identityName').addEventListener('keydown',e=>{if(e.key==='Enter')confirmIdentity()});window.addEventListener('load',async()=>{setTimeout(initGoogle,900);await showBootSequence();openIdentityIfNeeded();});
+
+
+/* === GELİŞMİŞ ARKA PLAN + MÜZİK + ETKİLEŞİM === */
+(function(){
+  const music=document.getElementById('systemMusic');
+  const musicToggle=document.getElementById('musicToggle');
+  const flash=document.getElementById('systemFlash');
+  const canvas=document.getElementById('fxCanvas');
+  const ctx=canvas?.getContext('2d');
+  let musicWanted=localStorage.getItem('system_music')!=='off';
+  let audioReady=false;
+  let audioCtx=null;
+
+  function resize(){ if(!canvas||!ctx)return; const dpr=Math.min(devicePixelRatio||1,1.75); canvas.width=Math.floor(innerWidth*dpr);canvas.height=Math.floor(innerHeight*dpr);canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';ctx.setTransform(dpr,0,0,dpr,0,0); }
+  addEventListener('resize',resize,{passive:true}); resize();
+
+  const stars=Array.from({length:90},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,z:.2+Math.random()*.8,r:.35+Math.random()*1.3,s:.08+Math.random()*.38,p:Math.random()*Math.PI*2}));
+  let mx=innerWidth/2,my=innerHeight/2;
+  addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;document.documentElement.style.setProperty('--mx',mx+'px');document.documentElement.style.setProperty('--my',my+'px')},{passive:true});
+  function draw(now){
+    if(!ctx)return;
+    const w=innerWidth,h=innerHeight;ctx.clearRect(0,0,w,h);
+    const glow=ctx.createRadialGradient(mx,my,0,mx,my,240);glow.addColorStop(0,'rgba(91,212,255,.075)');glow.addColorStop(1,'rgba(91,212,255,0)');ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
+    for(const s of stars){
+      s.y-=s.s*s.z; if(s.y<-5)s.y=h+5;
+      s.p+=.015; const alpha=.12+s.z*.28*(.55+.45*Math.sin(s.p));
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r*s.z,0,Math.PI*2);ctx.fillStyle=`rgba(128,226,255,${alpha})`;ctx.fill();
+    }
+    // faint geometric rays
+    ctx.strokeStyle='rgba(86,199,255,.035)';ctx.lineWidth=1;
+    for(let i=0;i<6;i++){const ang=(i/6)*Math.PI*2+now*.00003;ctx.beginPath();ctx.moveTo(w/2,h/2);ctx.lineTo(w/2+Math.cos(ang)*w*1.2,h/2+Math.sin(ang)*h*1.2);ctx.stroke()}
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  function ensureAudio(){
+    if(audioReady)return;
+    try{audioCtx=new (window.AudioContext||window.webkitAudioContext)(); audioReady=true;}catch{}
+  }
+  function beep(freq=520,duration=.045,type='sine',gain=.018){
+    ensureAudio(); if(!audioCtx)return; if(audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});
+    const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(0,audioCtx.currentTime);g.gain.linearRampToValueAtTime(gain,audioCtx.currentTime+.006);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+duration);o.connect(g).connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+duration+.01);
+  }
+  function clickSound(){beep(480,.035,'triangle',.012)}
+  function rewardSound(){[523.25,659.25,783.99].forEach((f,i)=>setTimeout(()=>beep(f,.13,'sine',.02),i*70))}
+
+  function updateMusicButton(){
+    musicToggle?.classList.toggle('active',!music.paused && !music.ended);
+    musicToggle?.setAttribute('aria-pressed',String(!music.paused));
+  }
+  async function startMusic(){
+    music.volume=.18;
+    try{await music.play();musicWanted=true;localStorage.setItem('system_music','on');updateMusicButton()}catch{musicWanted=true;updateMusicButton()}}
+  function stopMusic(){music.pause();music.currentTime=0;musicWanted=false;localStorage.setItem('system_music','off');updateMusicButton()}
+  musicToggle?.addEventListener('click',async e=>{e.stopPropagation();clickSound();if(music.paused)await startMusic();else stopMusic();});
+  document.addEventListener('pointerdown',()=>{ensureAudio();if(musicWanted&&music.paused)startMusic();},{once:false,passive:true});
+  document.addEventListener('keydown',()=>{ensureAudio();if(musicWanted&&music.paused)startMusic();},{once:false});
+  music?.addEventListener('play',updateMusicButton); music?.addEventListener('pause',updateMusicButton);
+  if(!musicWanted) updateMusicButton(); else setTimeout(()=>startMusic(),800);
+
+  function pulse(){flash.classList.remove('active');void flash.offsetWidth;flash.classList.add('active');}
+  document.addEventListener('click',e=>{
+    if(e.target.closest('button,.navBtn,.questCheck,.questAction,.filterBtn,.icon')){
+      if(!e.target.closest('#musicToggle'))clickSound();
+    }
+  });
+  // Observe reward overlay to add an audio cue whenever it appears.
+  const reward=document.getElementById('reward');
+  if(reward){new MutationObserver(()=>{if(reward.classList.contains('show')){rewardSound();pulse()}}).observe(reward,{attributes:true,attributeFilter:['class']})}
+  // page navigation flash
+  document.querySelectorAll('.navBtn,[data-go]').forEach(b=>b.addEventListener('click',pulse));
+
+  // Soft 3D pointer parallax for hero / identity panel.
+  addEventListener('pointermove',e=>{
+    const cards=document.querySelectorAll('.hero,.identityPanel');
+    const dx=(e.clientX/innerWidth-.5)*2,dy=(e.clientY/innerHeight-.5)*2;
+    cards.forEach(el=>{el.style.setProperty('--tiltX',(-dy*1.5).toFixed(2)+'deg');el.style.setProperty('--tiltY',(dx*1.5).toFixed(2)+'deg')});
+  },{passive:true});
+  const style=document.createElement('style');style.textContent='.hero,.identityPanel{transform:perspective(1100px) rotateX(var(--tiltX,0deg)) rotateY(var(--tiltY,0deg));transition:transform .25s ease}';document.head.appendChild(style);
+})();
+
 </script>
 </body>
 </html>

@@ -1094,5 +1094,131 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
   </div>
 </div>
 
+
+<!-- === HAREKETSİZLİK / 25 SN CİHAZ HAREKETİ PROTOKOLÜ === -->
+<script>
+(function(){
+  const EXIT_AFTER = 25000;
+  const MOTION_THRESHOLD = 1.35; // m/s²; küçük sensör gürültüsünü yok say
+  const STILL_SAMPLE_LIMIT = 3;
+
+  let lastMeaningfulMotion = null;
+  let sensorSeen = false;
+  let exitTimer = null;
+  let armed = true;
+  let lastVector = null;
+  let stillSamples = 0;
+
+  function stopExitTimer(){
+    if(exitTimer){ clearTimeout(exitTimer); exitTimer = null; }
+  }
+
+  function armExitCountdown(){
+    if(!armed || document.hidden || !sensorSeen || lastMeaningfulMotion === null) return;
+    stopExitTimer();
+    const elapsed = Date.now() - lastMeaningfulMotion;
+    const remaining = Math.max(250, EXIT_AFTER - elapsed);
+    exitTimer = setTimeout(checkMotionTimeout, remaining);
+  }
+
+  function exitFromPage(){
+    if(!armed) return;
+    armed = false;
+    stopExitTimer();
+
+    try{
+      if(typeof window.beep === 'function'){
+        window.beep(170,.16,'sawtooth',.013);
+        setTimeout(()=>window.beep(120,.22,'sawtooth',.011),160);
+      }
+    }catch{}
+
+    // Normal kullanıcı sekmesini tarayıcı güvenliği nedeniyle her zaman
+    // kapatmak mümkün değildir; mümkünse kapat, değilse boş sayfaya çık.
+    setTimeout(()=>{
+      try { window.close(); } catch{}
+      setTimeout(()=>{
+        try{
+          if(!window.closed) window.location.replace('about:blank');
+        }catch{}
+      },220);
+    },180);
+  }
+
+  function checkMotionTimeout(){
+    exitTimer = null;
+    if(!armed || document.hidden || !sensorSeen || lastMeaningfulMotion === null) return;
+    const elapsed = Date.now() - lastMeaningfulMotion;
+    if(elapsed >= EXIT_AFTER){
+      exitFromPage();
+    }else{
+      armExitCountdown();
+    }
+  }
+
+  function meaningfulMotion(e){
+    const a = e.acceleration;
+    const g = e.accelerationIncludingGravity;
+    let x=0,y=0,z=0,valid=false;
+
+    if(a && [a.x,a.y,a.z].every(v=>Number.isFinite(v))){
+      x=a.x; y=a.y; z=a.z; valid=true;
+    }else if(g && [g.x,g.y,g.z].every(v=>Number.isFinite(v))){
+      // accelerationIncludingGravity: yerçekimini tek başına hareket sayma.
+      const mag=Math.hypot(g.x,g.y,g.z);
+      if(lastVector){
+        const delta=Math.hypot(g.x-lastVector.x,g.y-lastVector.y,g.z-lastVector.z);
+        x=delta; y=0; z=0; valid=delta >= MOTION_THRESHOLD;
+      }else{
+        lastVector={x:g.x,y:g.y,z:g.z};
+        return false;
+      }
+    }
+
+    if(!valid) return false;
+    const mag=Math.hypot(x,y,z);
+    if(a){
+      if(mag < MOTION_THRESHOLD){
+        stillSamples++;
+        return false;
+      }
+      stillSamples=0;
+      return true;
+    }
+    if(stillSamples < STILL_SAMPLE_LIMIT) stillSamples++;
+    return mag >= MOTION_THRESHOLD;
+  }
+
+  function handleMotion(e){
+    if(!armed) return;
+    sensorSeen = true;
+    if(meaningfulMotion(e)){
+      lastMeaningfulMotion = Date.now();
+      armExitCountdown();
+    }
+    if(lastVector){
+      const g=e.accelerationIncludingGravity;
+      if(g && [g.x,g.y,g.z].every(v=>Number.isFinite(v))){
+        lastVector={x:g.x,y:g.y,z:g.z};
+      }
+    }
+  }
+
+  if('DeviceMotionEvent' in window){
+    // Mevcut sallama sistemi izin aldıktan sonra aynı sensörü yayınladığı
+    // için ayrıca ikinci bir izin penceresi açmıyoruz.
+    window.addEventListener('devicemotion',handleMotion,{passive:true});
+
+    document.addEventListener('visibilitychange',()=>{
+      if(document.hidden){
+        stopExitTimer();
+      }else if(lastMeaningfulMotion !== null){
+        armExitCountdown();
+      }
+    });
+  }
+})();
+</script>
+
 </body>
 </html>

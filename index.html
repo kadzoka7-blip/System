@@ -188,17 +188,16 @@ body::after{animation:scanMove 8s linear infinite}
 /* telefon hareketi / gelişmiş sistem sarsıntısı */
 .app{--shake-x:1;--shake-y:1;--shake-r:1}
 @keyframes systemShake{
-  0%{transform:translate3d(0,0,0) rotate(0deg) skew(0deg)}
-  7%{transform:translate3d(calc(var(--shake-x) * -12px),calc(var(--shake-y) * 5px),0) rotate(calc(var(--shake-r) * -.65deg)) skew(-.18deg)}
-  14%{transform:translate3d(calc(var(--shake-x) * 14px),calc(var(--shake-y) * -6px),0) rotate(calc(var(--shake-r) * .72deg)) skew(.22deg)}
-  23%{transform:translate3d(calc(var(--shake-x) * -16px),calc(var(--shake-y) * 7px),0) rotate(calc(var(--shake-r) * -.82deg)) skew(-.28deg)}
-  32%{transform:translate3d(calc(var(--shake-x) * 14px),calc(var(--shake-y) * -8px),0) rotate(calc(var(--shake-r) * .72deg)) skew(.2deg)}
-  42%{transform:translate3d(calc(var(--shake-x) * -11px),calc(var(--shake-y) * 6px),0) rotate(calc(var(--shake-r) * -.58deg)) skew(-.14deg)}
-  53%{transform:translate3d(calc(var(--shake-x) * 9px),calc(var(--shake-y) * -5px),0) rotate(calc(var(--shake-r) * .46deg)) skew(.12deg)}
-  65%{transform:translate3d(calc(var(--shake-x) * -6px),calc(var(--shake-y) * 3px),0) rotate(calc(var(--shake-r) * -.31deg)) skew(-.08deg)}
-  78%{transform:translate3d(calc(var(--shake-x) * 3px),calc(var(--shake-y) * -2px),0) rotate(calc(var(--shake-r) * .17deg)) skew(.05deg)}
-  90%{transform:translate3d(calc(var(--shake-x) * -1px),calc(var(--shake-y) * 1px),0) rotate(calc(var(--shake-r) * -.06deg)) skew(0)}
-  100%{transform:translate3d(0,0,0) rotate(0deg) skew(0deg)}
+  0%{transform:translate3d(0,0,0) rotate(0) scale(1)}
+  6%{transform:translate3d(calc(var(--shake-x) * -15px),calc(var(--shake-y) * 6px),0) rotate(calc(var(--shake-r) * -.8deg)) scale(1.008)}
+  13%{transform:translate3d(calc(var(--shake-x) * 20px),calc(var(--shake-y) * -8px),0) rotate(calc(var(--shake-r) * 1deg)) scale(.995)}
+  21%{transform:translate3d(calc(var(--shake-x) * -23px),calc(var(--shake-y) * 10px),0) rotate(calc(var(--shake-r) * -1.05deg)) scale(1.01)}
+  31%{transform:translate3d(calc(var(--shake-x) * 20px),calc(var(--shake-y) * -9px),0) rotate(calc(var(--shake-r) * .9deg)) scale(.998)}
+  42%{transform:translate3d(calc(var(--shake-x) * -16px),calc(var(--shake-y) * 7px),0) rotate(calc(var(--shake-r) * -.7deg)) scale(1.006)}
+  54%{transform:translate3d(calc(var(--shake-x) * 12px),calc(var(--shake-y) * -5px),0) rotate(calc(var(--shake-r) * .52deg)) scale(1)}
+  68%{transform:translate3d(calc(var(--shake-x) * -7px),calc(var(--shake-y) * 3px),0) rotate(calc(var(--shake-r) * -.32deg)) scale(1)}
+  82%{transform:translate3d(calc(var(--shake-x) * 3px),calc(var(--shake-y) * -1px),0) rotate(calc(var(--shake-r) * .15deg)) scale(1)}
+  100%{transform:translate3d(0,0,0) rotate(0) scale(1)}
 }
 @keyframes systemShakeUI{
   0%,100%{filter:none}
@@ -207,7 +206,7 @@ body::after{animation:scanMove 8s linear infinite}
   46%{filter:brightness(1.1) saturate(1.06)}
   70%{filter:brightness(.96)}
 }
-.app.system-shake{animation:systemShake .62s cubic-bezier(.2,.85,.2,1);will-change:transform}
+.app.system-shake{animation:systemShake .84s cubic-bezier(.16,.92,.18,1);will-change:transform;transform-origin:50% 46%}
 .app.system-shake .topbar,.app.system-shake .bottomNav{animation:systemShakeUI .62s ease-out}
 .app.system-shake .hero,.app.system-shake .levelHUD,.app.system-shake .card{box-shadow:0 0 0 1px rgba(115,223,255,.06),0 18px 48px rgba(0,0,0,.35),0 0 34px rgba(61,193,255,.09)}
 .systemMotionFlash{position:fixed;inset:0;z-index:9997;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 50%,rgba(162,241,255,.24),transparent 44%),radial-gradient(circle at var(--flash-x,50%) var(--flash-y,50%),rgba(70,191,255,.14),transparent 34%),linear-gradient(90deg,transparent 0%,rgba(113,226,255,.12) 50%,transparent 100%);mix-blend-mode:screen}
@@ -683,7 +682,7 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
 
 
 
-/* === TELEFON SALLAMA / JİROSKOP HAREKETİ === */
+/* === TELEFON SALLAMA / GELİŞMİŞ DEPREM HİSSİ === */
 (function(){
   const app=document.querySelector('.app');
   const flash=document.getElementById('systemMotionFlash');
@@ -692,17 +691,16 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
   if(!app || !('DeviceMotionEvent' in window)) return;
 
   let lastTrigger=0;
-  let lastMotion=0;
-  let lastX=0,lastY=0,lastZ=0;
+  let lastSample=0;
+  let lastX=null,lastY=null,lastZ=null;
+  let energy=0;
+  let peakCount=0;
+  let lastPeak=0;
   let sensorActive=false;
   let permissionRequested=false;
-  let shakeCount=Number(localStorage.getItem('gulse_system_shake_count')||0);
+  let shakeCount=Math.min(10,Math.max(0,Number(localStorage.getItem('gulse_system_shake_count')||0)));
   let secretFound=localStorage.getItem('gulse_system_shake_secret')==='1';
-  let accumulatedEnergy=0;
-  let lastDirectionX=0,lastDirectionY=0;
-  const threshold=15.5;
-  const cooldown=520;
-  const requiredShakes=10;
+  const REQUIRED=10;
 
   function stopMotion(){
     if(!sensorActive) return;
@@ -710,11 +708,11 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
     sensorActive=false;
   }
 
-  function revealHiddenMessage(){
+  function hiddenMessage(){
     if(secretFound) return;
     secretFound=true;
     localStorage.setItem('gulse_system_shake_secret','1');
-    localStorage.setItem('gulse_system_shake_count',String(requiredShakes));
+    localStorage.setItem('gulse_system_shake_count',String(REQUIRED));
     stopMotion();
     app.classList.remove('system-shake');
     flash?.classList.remove('active');
@@ -724,22 +722,22 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
       setTimeout(()=>window.beep(1175,.12,'sine',.016),120);
     }
     if(typeof window.showReward==='function'){
-      window.showReward('GİZLİ MESAJ', 'Tebrikler gizli mesajı buldunuz. Telefonunu artık sallama lütfen ..');
+      window.showReward('GİZLİ MESAJ','Tebrikler gizli mesajı buldunuz. Telefonunu artık sallama lütfen ..');
     }else if(typeof window.showToast==='function'){
       window.showToast('TEBRİKLER • GİZLİ MESAJI BULDUNUZ');
     }
   }
 
-  function triggerShake(strength=1,dirX=1,dirY=1){
-    const now=Date.now();
-    if(secretFound || now-lastTrigger<cooldown) return;
+  function shakeEffect(power,dirX,dirY){
+    const now=performance.now();
+    if(secretFound || now-lastTrigger<290) return;
     lastTrigger=now;
-    const power=Math.max(.65,Math.min(1.8,strength));
-    app.style.setProperty('--shake-x',(dirX||1).toFixed(2));
-    app.style.setProperty('--shake-y',(dirY||1).toFixed(2));
-    app.style.setProperty('--shake-r',(0.82+(power*.18)).toFixed(2));
-    shakeCount=Math.min(requiredShakes,shakeCount+1);
-    localStorage.setItem('gulse_system_shake_count',String(shakeCount));
+
+    power=Math.max(.85,Math.min(2.6,power));
+    dirX=dirX || 1; dirY=dirY || (Math.random()>.5?1:-1);
+    app.style.setProperty('--shake-x',(dirX*(.9+power*.08)).toFixed(2));
+    app.style.setProperty('--shake-y',(dirY*(.9+power*.08)).toFixed(2));
+    app.style.setProperty('--shake-r',(0.95+power*.28).toFixed(2));
 
     app.classList.remove('system-shake');
     void app.offsetWidth;
@@ -747,64 +745,90 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
 
     flash?.classList.remove('active');
     if(flash){
-      flash.style.setProperty('--flash-x',(50+dirX*8)+'%');
+      flash.style.setProperty('--flash-x',(50+dirX*12)+'%');
       flash.style.setProperty('--flash-y',(50+dirY*8)+'%');
       void flash.offsetWidth;
       flash.classList.add('active');
     }
 
     ripple?.classList.remove('active');
-    if(ripple){void ripple.offsetWidth;ripple.classList.add('active');}
+    if(ripple){
+      ripple.style.width=(18+power*10)+'px';
+      ripple.style.height=(18+power*10)+'px';
+      void ripple.offsetWidth;
+      ripple.classList.add('active');
+    }
 
     badge?.classList.remove('show');
     if(badge){void badge.offsetWidth;badge.classList.add('show');}
 
-    if(typeof window.showToast==='function') window.showToast('SİSTEM HAREKETİ ALGILANDI • '+shakeCount+'/10');
+    if(typeof window.showToast==='function') window.showToast('SİSTEM SARSINTISI ALGILANDI • '+shakeCount+'/10');
     if(typeof window.beep==='function'){
-      window.beep(560+Math.round(power*80),.055,'triangle',.012);
-      setTimeout(()=>window.beep(740+Math.round(power*50),.04,'sine',.007),45);
-    }
-    if(shakeCount>=requiredShakes){
-      setTimeout(revealHiddenMessage,420);
+      window.beep(500+Math.round(power*125),.055,'triangle',.014);
+      setTimeout(()=>window.beep(700+Math.round(power*80),.045,'sine',.008),55);
     }
   }
 
+  function registerShake(strength,dx,dy){
+    const now=performance.now();
+    if(secretFound || now-lastTrigger<290) return;
+    shakeCount=Math.min(REQUIRED,shakeCount+1);
+    localStorage.setItem('gulse_system_shake_count',String(shakeCount));
+    shakeEffect(strength,dx,dy);
+    if(shakeCount>=REQUIRED) setTimeout(hiddenMessage,360);
+  }
+
   function handleMotion(e){
-    const a=e.accelerationIncludingGravity || e.acceleration;
-    if(!a) return;
-    const now=Date.now();
-    if(now-lastMotion<24) return;
-    lastMotion=now;
+    if(secretFound) return;
+    const now=performance.now();
+    if(now-lastSample<18) return;
+    lastSample=now;
 
-    const x=Number(a.x)||0, y=Number(a.y)||0, z=Number(a.z)||0;
-    const dx=x-lastX, dy=y-lastY, dz=z-lastZ;
-    lastX=x;lastY=y;lastZ=z;
+    const a=e.acceleration;
+    const g=e.accelerationIncludingGravity;
+    let x=0,y=0,z=0;
 
-    const delta=Math.sqrt(dx*dx+dy*dy+dz*dz);
-    // Kısa süreli enerji biriktirir: telefonun gerçekten silkelenmesini tek bir gürültülü örnekten ayırır.
-    accumulatedEnergy=Math.max(0,accumulatedEnergy*.82+delta);
-    if(Math.abs(dx)>1.5) lastDirectionX=Math.sign(dx);
-    if(Math.abs(dy)>1.5) lastDirectionY=Math.sign(dy);
+    if(a && [a.x,a.y,a.z].every(v=>Number.isFinite(v))){
+      // Ham ivme mevcutsa yerçekimi zaten ayrıştırılmıştır.
+      x=a.x||0; y=a.y||0; z=a.z||0;
+    }else if(g && [g.x,g.y,g.z].every(v=>Number.isFinite(v))){
+      // Gravity dahil veri: iki örnek arasındaki değişimi kullan.
+      if(lastX===null){lastX=g.x;lastY=g.y;lastZ=g.z;return;}
+      x=g.x-lastX; y=g.y-lastY; z=g.z-lastZ;
+      lastX=g.x; lastY=g.y; lastZ=g.z;
+    }else return;
 
-    if(accumulatedEnergy>threshold){
-      const strength=Math.min(2.25,accumulatedEnergy/threshold);
-      const dirX=lastDirectionX || (dx>=0?1:-1);
-      const dirY=lastDirectionY || (dy>=0?1:-1);
-      accumulatedEnergy*=.33;
-      triggerShake(strength,dirX,dirY);
+    const magnitude=Math.hypot(x,y,z);
+    // Enerjiyi zamana yay: tek örnek yerine gerçek bir silkelenme yakala.
+    energy=Math.max(0,energy*0.79 + magnitude);
+
+    const dominant=Math.abs(x)>=Math.abs(y) && Math.abs(x)>=Math.abs(z) ? x : (Math.abs(y)>=Math.abs(z)?y:z);
+    if(magnitude>3.6){
+      if(now-lastPeak<520 && Math.sign(dominant)!==Math.sign(peakCount||dominant)) peakCount++;
+      else if(now-lastPeak>700) peakCount=1;
+      lastPeak=now;
+    }
+
+    // Güçlü ani hareket veya birkaç hızlı ters yönlü darbenin toplamı.
+    const reversalReady=peakCount>=2 && now-lastPeak<520;
+    if(energy>12.5 || magnitude>11.5 || reversalReady){
+      const strength=Math.min(2.5,Math.max(1,energy/8));
+      const dirX=Math.sign(x)||Math.sign(lastX)||1;
+      const dirY=Math.sign(y)||((Math.random()>.5)?1:-1);
+      energy*=0.32;
+      peakCount=0;
+      registerShake(strength,dirX,dirY);
     }
   }
 
   function enableMotion(){
-    if(secretFound) return false;
-    if(sensorActive) return true;
+    if(sensorActive || secretFound) return;
     window.addEventListener('devicemotion',handleMotion,{passive:true});
     sensorActive=true;
-    return true;
   }
 
   async function requestMotion(){
-    if(permissionRequested) return;
+    if(permissionRequested || secretFound) return;
     permissionRequested=true;
     try{
       if(typeof DeviceMotionEvent.requestPermission==='function'){
@@ -812,17 +836,14 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
         if(result!=='granted') return;
       }
       enableMotion();
-    }catch{
-      // izin verilmezse site normal çalışmaya devam eder.
-    }
+    }catch{}
   }
 
-  // iPhone/iPad gibi izin isteyen cihazlarda ilk kullanıcı dokunuşunda iste.
+  // iOS: ilk kullanıcı etkileşiminde sensör izni iste.
   document.addEventListener('pointerdown',requestMotion,{once:true,passive:true});
-  // Android / izin istemeyen cihazlarda doğrudan dinlemeyi başlat.
-  if(!secretFound && typeof DeviceMotionEvent.requestPermission!=='function') enableMotion();
+  // Android/masaüstü destekliyorsa doğrudan dinle.
+  if(typeof DeviceMotionEvent.requestPermission!=='function') enableMotion();
 
-  // Sensör destekleniyorsa kilit ekranından geri dönüşte tekrar bağlanmayı dene.
   document.addEventListener('visibilitychange',()=>{
     if(!document.hidden && !sensorActive && !secretFound) requestMotion();
   });

@@ -231,6 +231,31 @@ body::after{animation:scanMove 8s linear infinite}
 .orientationAlertKicker{font-size:7px;letter-spacing:.2em;color:#557b96;margin-bottom:13px}.orientationAlertGlyph{width:48px;height:48px;margin:0 auto 12px;display:grid;place-items:center;border:1px solid rgba(110,224,255,.35);border-radius:50%;color:var(--cyan);font-size:22px;box-shadow:0 0 28px rgba(64,196,255,.16),inset 0 0 16px rgba(64,196,255,.08);animation:orientationSpin 2.8s linear infinite}
 .orientationAlert h2{font-size:20px;letter-spacing:.09em;text-shadow:0 0 22px rgba(109,222,255,.2);margin-bottom:8px}.orientationAlert p{font-size:9px;color:#6e879f;line-height:1.6;margin-bottom:17px}.orientationAlert .btn{min-width:140px}
 @keyframes orientationSweep{0%,100%{transform:translateX(-45%);opacity:0}35%{opacity:1}70%{transform:translateX(45%);opacity:0}}@keyframes orientationSpin{to{transform:rotate(360deg)}}
+
+/* === ETKİLEŞİMSİZLİK / YAŞAMSAL FONKSİYON KORUMASI === */
+.inactivityGuard{position:fixed;inset:0;z-index:10050;display:grid;place-items:center;padding:18px;background:rgba(0,2,7,.78);backdrop-filter:blur(18px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility .28s ease}
+.inactivityGuard.show{opacity:1;visibility:visible;pointer-events:auto}
+.inactivityGuardBox{width:min(520px,94vw);position:relative;overflow:hidden;padding:26px 24px 22px;border:1px solid rgba(255,102,136,.46);background:linear-gradient(180deg,rgba(21,10,20,.97),rgba(3,7,15,.99));box-shadow:0 0 90px rgba(255,69,118,.16),0 36px 120px rgba(0,0,0,.76);clip-path:polygon(24px 0,calc(100% - 24px) 0,100% 24px,100% calc(100% - 24px),calc(100% - 24px) 100%,24px 100%,0 calc(100% - 24px),0 24px);transform:translateY(18px) scale(.96);transition:transform .38s cubic-bezier(.2,.85,.2,1)}
+.inactivityGuard.show .inactivityGuardBox{transform:none}
+.inactivityGuardBox::before{content:"";position:absolute;left:-25%;right:-25%;top:0;height:2px;background:linear-gradient(90deg,transparent,#ff6d93,transparent);box-shadow:0 0 20px rgba(255,102,136,.85);animation:guardSweep 1.4s linear infinite}
+.inactivityGuardBox::after{content:"YAŞAMSAL İZLEME // AKTİF";position:absolute;right:18px;top:15px;color:rgba(255,139,165,.25);font-size:7px;letter-spacing:.18em}
+.guardKicker{display:flex;align-items:center;gap:8px;color:#ff8ca9;font-size:8px;letter-spacing:.2em;margin-bottom:14px}.guardDot{width:7px;height:7px;border-radius:50%;background:#ff5e87;box-shadow:0 0 13px rgba(255,94,135,.9);animation:guardPulse .72s infinite}
+.guardIcon{width:58px;height:58px;margin-bottom:14px;border:1px solid rgba(255,117,150,.42);display:grid;place-items:center;color:#ff8fa9;font-size:24px;box-shadow:0 0 25px rgba(255,64,116,.12),inset 0 0 20px rgba(255,64,116,.08);clip-path:polygon(13px 0,calc(100% - 13px) 0,100% 13px,100% calc(100% - 13px),calc(100% - 13px) 100%,13px 100%,0 calc(100% - 13px),0 13px);animation:guardFloat 2.2s ease-in-out infinite}
+.guardTitle{font-size:22px;line-height:1.15;letter-spacing:.02em;margin-bottom:10px;text-shadow:0 0 24px rgba(255,105,142,.16)}
+.guardText{font-size:10px;line-height:1.7;color:#9d7c89;max-width:470px}.guardText strong{color:#ffc1cf;font-weight:800}
+.guardTimerRow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;padding:12px;border:1px solid rgba(255,107,143,.18);background:rgba(255,66,117,.04)}
+.guardTimerLabel{font-size:8px;letter-spacing:.15em;color:#7e6572}.guardTimer{font-size:30px;font-weight:800;color:#ff8da9;font-variant-numeric:tabular-nums;letter-spacing:-.05em;text-shadow:0 0 20px rgba(255,86,133,.34)}
+.guardProgress{height:5px;margin-top:10px;background:#1a0e16;overflow:hidden}.guardProgress i{display:block;height:100%;width:100%;transform-origin:left center;background:linear-gradient(90deg,#ff557f,#ffb2c6);box-shadow:0 0 18px rgba(255,84,126,.5);transition:width .2s linear}
+.guardStatus{margin-top:12px;color:#7b6472;font-size:8px;letter-spacing:.12em;min-height:18px}.guardActions{display:flex;gap:8px;margin-top:18px}.guardActions .btn{flex:1}.guardActions .btn.primary{background:linear-gradient(135deg,#a92c53,#5e1734);border-color:#ff7398;box-shadow:0 0 24px rgba(255,68,118,.15)}
+.inactivityGuard.critical .inactivityGuardBox{border-color:rgba(255,56,103,.7);box-shadow:0 0 110px rgba(255,35,95,.25),0 36px 120px rgba(0,0,0,.78);animation:guardCritical .34s ease-in-out 2}
+.inactivityGuard.critical .guardTimer{color:#ff5e82}.inactivityGuard.critical .guardStatus{color:#ff8ca9}
+@keyframes guardSweep{from{transform:translateX(-25%)}to{transform:translateX(25%)}}
+@keyframes guardPulse{50%{transform:scale(1.55);opacity:.55}}
+@keyframes guardFloat{50%{transform:translateY(-4px);box-shadow:0 0 34px rgba(255,64,116,.2),inset 0 0 22px rgba(255,64,116,.1)}}
+@keyframes guardCritical{50%{transform:translateX(3px)}}
+@media(max-width:720px){.inactivityGuardBox{padding:23px 18px 18px}.guardTitle{font-size:18px}.guardActions{flex-direction:column}.guardTimer{font-size:27px}.inactivityGuardBox::after{display:none}}
+@media(prefers-reduced-motion:reduce){.inactivityGuardBox::before,.guardDot,.guardIcon{animation:none}}
+
 </style>
 </head>
 <body>
@@ -900,6 +925,137 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
   });
 })();
 
+
+
+/* === ETKİLEŞİMSİZLİK / 15-21-30 SN SİSTEM PROTOKOLÜ === */
+(function(){
+  const overlay=document.getElementById('inactivityGuard');
+  const timerEl=document.getElementById('guardTimer');
+  const bar=document.getElementById('guardProgressBar');
+  const statusEl=document.getElementById('guardStatus');
+  const interactBtn=document.getElementById('guardInteract');
+  const dismissBtn=document.getElementById('guardDismiss');
+  const box=overlay?.querySelector('.inactivityGuardBox');
+  if(!overlay||!timerEl||!bar||!statusEl) return;
+
+  let idleTimer=null;
+  let warningTimer=null;
+  let closeTimer=null;
+  let warningOpen=false;
+  let warningStartedAt=0;
+  let ignoreUntil=0;
+  let closingAttempted=false;
+  const WARNING_AFTER=15000;
+  const WARNING_WINDOW=6000;
+  const CLOSE_AFTER=30000;
+
+  function beepGuard(){
+    try{ if(typeof window.beep==='function'){ window.beep(360,.07,'triangle',.011); setTimeout(()=>window.beep(520,.08,'sine',.008),90); } }catch{}
+  }
+
+  function hideGuard(){
+    warningOpen=false;
+    overlay.classList.remove('show','critical');
+    overlay.setAttribute('aria-hidden','true');
+    if(box) box.classList.remove('critical');
+    clearInterval(warningTimer); warningTimer=null;
+    clearTimeout(closeTimer); closeTimer=null;
+    warningStartedAt=0;
+  }
+
+  function resetInactivity(){
+    if(closingAttempted) return;
+    clearTimeout(idleTimer); idleTimer=null;
+    if(Date.now()<ignoreUntil) return;
+    hideGuard();
+    idleTimer=setTimeout(showGuard,WARNING_AFTER);
+  }
+
+  function showGuard(){
+    if(closingAttempted || warningOpen || document.hidden) return;
+    warningOpen=true;
+    warningStartedAt=Date.now();
+    timerEl.textContent='06';
+    bar.style.width='100%';
+    statusEl.textContent='ETKİLEŞİM BEKLENİYOR • 6 SANİYE KALDI';
+    overlay.classList.remove('critical');
+    overlay.classList.add('show');
+    overlay.setAttribute('aria-hidden','false');
+    beepGuard();
+
+    clearInterval(warningTimer);
+    warningTimer=setInterval(()=>{
+      const elapsed=Date.now()-warningStartedAt;
+      const left=Math.max(0,WARNING_WINDOW-elapsed);
+      const secs=Math.ceil(left/1000);
+      timerEl.textContent=String(secs).padStart(2,'0');
+      bar.style.width=Math.max(0,(left/WARNING_WINDOW)*100)+'%';
+      if(secs>0) statusEl.textContent='ETKİLEŞİM BEKLENİYOR • '+secs+' SANİYE KALDI';
+      if(left<=0){
+        clearInterval(warningTimer);warningTimer=null;
+        overlay.classList.add('critical');
+        if(box) box.classList.add('critical');
+        timerEl.textContent='00';
+        statusEl.textContent='YETKİLİLERE BİLDİRİM PROTOKOLÜ HAZIRLANIYOR...';
+        try{ if(typeof window.beep==='function'){window.beep(210,.18,'sawtooth',.012);setTimeout(()=>window.beep(165,.15,'sawtooth',.01),180)} }catch{}
+      }
+    },100);
+
+    clearTimeout(closeTimer);
+    // Toplam 30 saniye dokunulmazlıkta tarayıcı sekmesini kapatmayı dene.
+    closeTimer=setTimeout(attemptBrowserClose, CLOSE_AFTER-WARNING_AFTER);
+  }
+
+  function attemptBrowserClose(){
+    if(closingAttempted) return;
+    closingAttempted=true;
+    overlay.classList.add('critical');
+    statusEl.textContent='30 SANİYEDİR ETKİLEŞİM YOK • SİSTEM SONLANDIRILIYOR...';
+    timerEl.textContent='00';
+    bar.style.width='0%';
+    try{ if(typeof window.beep==='function'){window.beep(130,.22,'sawtooth',.014)} }catch{}
+    setTimeout(()=>{
+      // Tarayıcılar kullanıcı tarafından açılan sekmeleri programatik olarak kapatmayı engelleyebilir.
+      window.close();
+      // Kapatma engellenirse sayfayı güvenli bir boş sayfaya almayı dene.
+      setTimeout(()=>{try{window.location.replace('about:blank')}catch{}},250);
+    },180);
+  }
+
+  function userInteracted(){
+    if(closingAttempted) return;
+    ignoreUntil=Date.now()+650;
+    resetInactivity();
+  }
+
+  interactBtn?.addEventListener('click',userInteracted);
+  dismissBtn?.addEventListener('click',userInteracted);
+  overlay.addEventListener('pointerdown',e=>{if(e.target===overlay)userInteracted()},{passive:true});
+  ['pointerdown','touchstart','keydown','wheel'].forEach(ev=>{
+    window.addEventListener(ev,userInteracted,{passive:true});
+  });
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden){clearTimeout(idleTimer);idleTimer=null;}else resetInactivity();
+  });
+
+  // Sayfa açıldıktan sonra 15 sn boyunca etkileşim olmazsa uyarıyı göster.
+  setTimeout(resetInactivity,200);
+})();
+
 </script>
+
+<div class="inactivityGuard" id="inactivityGuard" aria-hidden="true">
+  <div class="inactivityGuardBox" role="alertdialog" aria-modal="true" aria-labelledby="guardTitle">
+    <div class="guardKicker"><i class="guardDot"></i><span>SİSTEM // YAŞAMSAL FONKSİYON İZLEME</span></div>
+    <div class="guardIcon">♥</div>
+    <div class="guardTitle" id="guardTitle">Sistem Yaşamsal fonksiyonlar göremiyoruz</div>
+    <div class="guardText">Son <strong>15 saniyedir</strong> herhangi bir etkileşim algılanmadı. <strong>6 saniye daha</strong> etkileşimde bulunmazsanız yetkililere bildireceğiz.</div>
+    <div class="guardTimerRow"><div class="guardTimerLabel">KALAN SÜRE</div><div class="guardTimer" id="guardTimer">06</div></div>
+    <div class="guardProgress"><i id="guardProgressBar"></i></div>
+    <div class="guardStatus" id="guardStatus">ETKİLEŞİM BEKLENİYOR • SİSTEM İZLEMEDE</div>
+    <div class="guardActions"><button class="btn primary" id="guardInteract">SİSTEME DÖN</button><button class="btn ghost" id="guardDismiss">ANLADIM</button></div>
+  </div>
+</div>
+
 </body>
 </html>

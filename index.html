@@ -948,7 +948,7 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
 
 
 
-/* === ETKİLEŞİMSİZLİK / 15-30 SN SİSTEM PROTOKOLÜ === */
+/* === ETKİLEŞİMSİZLİK / 60 SN YAŞAMSAL FONKSİYON İZLEME === */
 (function(){
   function initInactivityGuard(){
     const overlay=document.getElementById('inactivityGuard');
@@ -957,20 +957,12 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
     const statusEl=document.getElementById('guardStatus');
     const interactBtn=document.getElementById('guardInteract');
     const dismissBtn=document.getElementById('guardDismiss');
-    const box=overlay?.querySelector('.inactivityGuardBox');
     if(!overlay||!timerEl||!bar||!statusEl) return;
 
     let idleTimer=null;
-    let warningTimer=null;
-    let closeTimer=null;
     let warningOpen=false;
-    let warningStartedAt=0;
     let ignoreUntil=0;
-    let closingAttempted=false;
-
-    const WARNING_AFTER=15000; // İlk uyarı: 15 sn
-    const WARNING_WINDOW=6000;  // Uyarı geri sayımı: 6 sn
-    const CLOSE_AFTER=30000;    // Toplam etkileşimsizlik: 30 sn
+    const WARNING_AFTER=60000;
 
     function beepGuard(){
       try{
@@ -981,116 +973,58 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
       }catch{}
     }
 
-    function hideGuard(){
-      warningOpen=false;
-      overlay.classList.remove('show','critical');
-      overlay.setAttribute('aria-hidden','true');
-      if(box) box.classList.remove('critical');
-      clearInterval(warningTimer); warningTimer=null;
-      clearTimeout(closeTimer); closeTimer=null;
-      warningStartedAt=0;
-    }
-
     function showGuard(){
-      if(closingAttempted || warningOpen || document.hidden) return;
+      if(warningOpen || document.hidden || Date.now()<ignoreUntil) return;
       warningOpen=true;
-      warningStartedAt=Date.now();
-      timerEl.textContent='06';
+      timerEl.textContent='60';
       bar.style.width='100%';
-      statusEl.textContent='ETKİLEŞİM BEKLENİYOR • 6 SANİYE KALDI';
+      statusEl.textContent='YAŞAMSAL FONKSİYON İZLEME AKTİF • ETKİLEŞİM BEKLENİYOR';
       overlay.classList.remove('critical');
-      if(box) box.classList.remove('critical');
       overlay.classList.add('show');
       overlay.setAttribute('aria-hidden','false');
       beepGuard();
-
-      clearInterval(warningTimer);
-      warningTimer=setInterval(()=>{
-        const elapsed=Date.now()-warningStartedAt;
-        const left=Math.max(0,WARNING_WINDOW-elapsed);
-        const secs=Math.ceil(left/1000);
-        timerEl.textContent=String(secs).padStart(2,'0');
-        bar.style.width=Math.max(0,(left/WARNING_WINDOW)*100)+'%';
-
-        if(secs>0){
-          statusEl.textContent='ETKİLEŞİM BEKLENİYOR • '+secs+' SANİYE KALDI';
-        }else{
-          clearInterval(warningTimer); warningTimer=null;
-          overlay.classList.add('critical');
-          if(box) box.classList.add('critical');
-          timerEl.textContent='00';
-          statusEl.textContent='YETKİLİLERE BİLDİRİM PROTOKOLÜ HAZIRLANIYOR...';
-          try{
-            if(typeof window.beep==='function'){
-              window.beep(210,.18,'sawtooth',.012);
-              setTimeout(()=>window.beep(165,.15,'sawtooth',.01),180);
-            }
-          }catch{}
-        }
-      },100);
-
-      // Uyarı 15. saniyede açıldı. Kapatma tam 30. saniyede gerçekleşsin.
-      clearTimeout(closeTimer);
-      const remainingToClose=Math.max(0, CLOSE_AFTER-(Date.now()-warningStartedAt));
-      closeTimer=setTimeout(attemptBrowserClose, remainingToClose);
     }
 
-    function resetInactivity(){
-      if(closingAttempted) return;
-      clearTimeout(idleTimer); idleTimer=null;
-      clearTimeout(closeTimer); closeTimer=null;
-      clearInterval(warningTimer); warningTimer=null;
-      hideGuard();
-      if(Date.now()<ignoreUntil) return;
+    function dismissGuard(){
+      warningOpen=false;
+      overlay.classList.remove('show','critical');
+      overlay.setAttribute('aria-hidden','true');
+      ignoreUntil=Date.now()+650;
+      clearTimeout(idleTimer);
       idleTimer=setTimeout(showGuard,WARNING_AFTER);
     }
 
-    function attemptBrowserClose(){
-      if(closingAttempted) return;
-      closingAttempted=true;
-      overlay.classList.add('critical');
-      statusEl.textContent='30 SANİYEDİR ETKİLEŞİM YOK • SİSTEM SONLANDIRILIYOR...';
-      timerEl.textContent='00';
-      bar.style.width='0%';
-      try{ if(typeof window.beep==='function') window.beep(130,.22,'sawtooth',.014); }catch{}
-      setTimeout(()=>{
-        // Chrome/Firefox kullanıcı tarafından açılan sekmeleri kapatmayı engelleyebilir.
-        try{ window.close(); }catch{}
-        setTimeout(()=>{
-          try{
-            if(!window.closed) window.location.replace('about:blank');
-          }catch{}
-        },250);
-      },180);
+    function resetTimerOnly(){
+      if(Date.now()<ignoreUntil || warningOpen || document.hidden) return;
+      clearTimeout(idleTimer);
+      idleTimer=setTimeout(showGuard,WARNING_AFTER);
     }
 
     function userInteracted(){
-      if(closingAttempted) return;
-      ignoreUntil=Date.now()+650;
-      resetInactivity();
+      // İzleme ekranı bir kez açıldıktan sonra kendiliğinden kaybolmaz.
+      if(warningOpen) return;
+      resetTimerOnly();
     }
 
-    interactBtn?.addEventListener('click',userInteracted);
-    dismissBtn?.addEventListener('click',userInteracted);
-    overlay.addEventListener('pointerdown',e=>{
-      if(e.target===overlay) userInteracted();
-    },{passive:true});
+    interactBtn?.addEventListener('click',dismissGuard);
+    dismissBtn?.addEventListener('click',dismissGuard);
 
-    ['pointerdown','touchstart','keydown','wheel'].forEach(ev=>{
+    ['pointerdown','touchstart','keydown','wheel','scroll'].forEach(ev=>{
       window.addEventListener(ev,userInteracted,{passive:true});
     });
 
     document.addEventListener('visibilitychange',()=>{
+      clearTimeout(idleTimer);
       if(document.hidden){
-        clearTimeout(idleTimer); idleTimer=null;
-        clearTimeout(closeTimer); closeTimer=null;
-      }else{
-        resetInactivity();
+        return;
+      }
+      if(!warningOpen){
+        idleTimer=setTimeout(showGuard,WARNING_AFTER);
       }
     });
 
-    // Overlay HTML aşağıda bulunduğu için DOMContentLoaded sonrasında başlatıyoruz.
-    resetInactivity();
+    clearTimeout(idleTimer);
+    idleTimer=setTimeout(showGuard,WARNING_AFTER);
   }
 
   if(document.readyState==='loading'){
@@ -1099,7 +1033,6 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
     initInactivityGuard();
   }
 })();
-
 </script>
 
 <div class="inactivityGuard" id="inactivityGuard" aria-hidden="true">
@@ -1107,139 +1040,16 @@ makeParticles();render();liveClock();setInterval(liveClock,1000);document.getEle
     <div class="guardKicker"><i class="guardDot"></i><span>SİSTEM // YAŞAMSAL FONKSİYON İZLEME</span></div>
     <div class="guardIcon">♥</div>
     <div class="guardTitle" id="guardTitle">Sistem Yaşamsal fonksiyonlar göremiyoruz</div>
-    <div class="guardText">Son <strong>15 saniyedir</strong> herhangi bir etkileşim algılanmadı. <strong>6 saniye daha</strong> etkileşimde bulunmazsanız yetkililere bildireceğiz.</div>
-    <div class="guardTimerRow"><div class="guardTimerLabel">KALAN SÜRE</div><div class="guardTimer" id="guardTimer">06</div></div>
+    <div class="guardText">Son <strong>1 dakikadır</strong> herhangi bir etkileşim algılanmadı. Lütfen sistemle etkileşim kurun.</div>
+    <div class="guardTimerRow"><div class="guardTimerLabel">İZLEME SÜRESİ</div><div class="guardTimer" id="guardTimer">60</div></div>
     <div class="guardProgress"><i id="guardProgressBar"></i></div>
-    <div class="guardStatus" id="guardStatus">ETKİLEŞİM BEKLENİYOR • SİSTEM İZLEMEDE</div>
+    <div class="guardStatus" id="guardStatus">YAŞAMSAL FONKSİYON İZLEME BEKLEMEDE</div>
     <div class="guardActions"><button class="btn primary" id="guardInteract">SİSTEME DÖN</button><button class="btn ghost" id="guardDismiss">ANLADIM</button></div>
   </div>
 </div>
 
 
-<!-- === HAREKETSİZLİK / 25 SN CİHAZ HAREKETİ PROTOKOLÜ === -->
-<script>
-(function(){
-  const EXIT_AFTER = 25000;
-  const MOTION_THRESHOLD = 1.35; // m/s²; küçük sensör gürültüsünü yok say
-  const STILL_SAMPLE_LIMIT = 3;
 
-  let lastMeaningfulMotion = null;
-  let sensorSeen = false;
-  let exitTimer = null;
-  let armed = true;
-  let lastVector = null;
-  let stillSamples = 0;
-
-  function stopExitTimer(){
-    if(exitTimer){ clearTimeout(exitTimer); exitTimer = null; }
-  }
-
-  function armExitCountdown(){
-    if(!armed || document.hidden || !sensorSeen || lastMeaningfulMotion === null) return;
-    stopExitTimer();
-    const elapsed = Date.now() - lastMeaningfulMotion;
-    const remaining = Math.max(250, EXIT_AFTER - elapsed);
-    exitTimer = setTimeout(checkMotionTimeout, remaining);
-  }
-
-  function exitFromPage(){
-    if(!armed) return;
-    armed = false;
-    stopExitTimer();
-
-    try{
-      if(typeof window.beep === 'function'){
-        window.beep(170,.16,'sawtooth',.013);
-        setTimeout(()=>window.beep(120,.22,'sawtooth',.011),160);
-      }
-    }catch{}
-
-    // Normal kullanıcı sekmesini tarayıcı güvenliği nedeniyle her zaman
-    // kapatmak mümkün değildir; mümkünse kapat, değilse boş sayfaya çık.
-    setTimeout(()=>{
-      try { window.close(); } catch{}
-      setTimeout(()=>{
-        try{
-          if(!window.closed) window.location.replace('about:blank');
-        }catch{}
-      },220);
-    },180);
-  }
-
-  function checkMotionTimeout(){
-    exitTimer = null;
-    if(!armed || document.hidden || !sensorSeen || lastMeaningfulMotion === null) return;
-    const elapsed = Date.now() - lastMeaningfulMotion;
-    if(elapsed >= EXIT_AFTER){
-      exitFromPage();
-    }else{
-      armExitCountdown();
-    }
-  }
-
-  function meaningfulMotion(e){
-    const a = e.acceleration;
-    const g = e.accelerationIncludingGravity;
-    let x=0,y=0,z=0,valid=false;
-
-    if(a && [a.x,a.y,a.z].every(v=>Number.isFinite(v))){
-      x=a.x; y=a.y; z=a.z; valid=true;
-    }else if(g && [g.x,g.y,g.z].every(v=>Number.isFinite(v))){
-      // accelerationIncludingGravity: yerçekimini tek başına hareket sayma.
-      const mag=Math.hypot(g.x,g.y,g.z);
-      if(lastVector){
-        const delta=Math.hypot(g.x-lastVector.x,g.y-lastVector.y,g.z-lastVector.z);
-        x=delta; y=0; z=0; valid=delta >= MOTION_THRESHOLD;
-      }else{
-        lastVector={x:g.x,y:g.y,z:g.z};
-        return false;
-      }
-    }
-
-    if(!valid) return false;
-    const mag=Math.hypot(x,y,z);
-    if(a){
-      if(mag < MOTION_THRESHOLD){
-        stillSamples++;
-        return false;
-      }
-      stillSamples=0;
-      return true;
-    }
-    if(stillSamples < STILL_SAMPLE_LIMIT) stillSamples++;
-    return mag >= MOTION_THRESHOLD;
-  }
-
-  function handleMotion(e){
-    if(!armed) return;
-    sensorSeen = true;
-    if(meaningfulMotion(e)){
-      lastMeaningfulMotion = Date.now();
-      armExitCountdown();
-    }
-    if(lastVector){
-      const g=e.accelerationIncludingGravity;
-      if(g && [g.x,g.y,g.z].every(v=>Number.isFinite(v))){
-        lastVector={x:g.x,y:g.y,z:g.z};
-      }
-    }
-  }
-
-  if('DeviceMotionEvent' in window){
-    // Mevcut sallama sistemi izin aldıktan sonra aynı sensörü yayınladığı
-    // için ayrıca ikinci bir izin penceresi açmıyoruz.
-    window.addEventListener('devicemotion',handleMotion,{passive:true});
-
-    document.addEventListener('visibilitychange',()=>{
-      if(document.hidden){
-        stopExitTimer();
-      }else if(lastMeaningfulMotion !== null){
-        armExitCountdown();
-      }
-    });
-  }
-})();
-</script>
 
 </body>
 </html>

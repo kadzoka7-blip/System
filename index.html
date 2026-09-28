@@ -312,6 +312,143 @@ body::after{animation:scanMove 8s linear infinite}
 @media(max-width:720px){.inactivityGuardBox{padding:23px 18px 18px}.guardTitle{font-size:18px}.guardActions{flex-direction:column}.guardTimer{font-size:27px}.inactivityGuardBox::after{display:none}}
 @media(prefers-reduced-motion:reduce){.inactivityGuardBox::before,.guardDot,.guardIcon{animation:none}}
 
+
+/* =========================================================
+   GÜLSE SYSTEM — GELİŞMİŞ ÖZGÜN ARAYÜZ KATMANI
+   ========================================================= */
+:root{
+  --edge:#72dfff;
+  --edgeSoft:rgba(114,223,255,.12);
+  --panelDeep:rgba(3,9,17,.94);
+  --panelMid:rgba(7,17,29,.82);
+  --silver:#c9e6f4;
+  --ink:#071321;
+}
+body{perspective:1200px}
+body::before{background-size:52px 52px;opacity:.075}
+body::after{opacity:.035}
+.app{position:relative;isolation:isolate}
+.app::before{content:"";position:fixed;z-index:-2;inset:0;pointer-events:none;background:
+ radial-gradient(circle at var(--mx,50%) var(--my,25%),rgba(88,211,255,.075),transparent 22%),
+ radial-gradient(circle at 82% 20%,rgba(62,118,255,.06),transparent 22%),
+ radial-gradient(circle at 14% 82%,rgba(63,214,190,.035),transparent 20%)}
+.app::after{content:"";position:fixed;z-index:-1;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 0%,transparent 56%,rgba(0,8,18,.18) 100%)}
+
+/* Sayfalara özgü atmosferler */
+#page-home{--pageAccent:#68ddff;--pageGlow:rgba(60,195,255,.12)}
+#page-tasks{--pageAccent:#7fffc1;--pageGlow:rgba(71,239,164,.08)}
+#page-streak{--pageAccent:#c8a7ff;--pageGlow:rgba(147,108,255,.09)}
+#page-shop{--pageAccent:#ffd67d;--pageGlow:rgba(255,195,66,.085)}
+#page-profile{--pageAccent:#9bc9ff;--pageGlow:rgba(97,157,255,.08)}
+.page{position:relative}
+.page::after{content:"";position:absolute;pointer-events:none;inset:48px 0 0;border-top:1px solid color-mix(in srgb,var(--pageAccent) 13%,transparent);opacity:.55;background:radial-gradient(circle at 50% 0,var(--pageGlow),transparent 42%);mask-image:linear-gradient(180deg,#000,transparent 32%);z-index:-1}
+.page .systemTitle h1{color:#eefaff;text-shadow:0 0 18px color-mix(in srgb,var(--pageAccent) 18%,transparent)}
+.page .systemTitle p{max-width:640px}
+.page .systemTitle .time{border-left:1px solid rgba(109,211,255,.14);padding-left:12px}
+
+/* ortak teknik detay */
+.pro-kicker{display:inline-flex;align-items:center;gap:7px;color:var(--pageAccent);font-size:7px;letter-spacing:.24em;border:1px solid color-mix(in srgb,var(--pageAccent) 22%,transparent);padding:6px 8px;background:rgba(4,12,21,.68);clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px)}
+.pro-kicker::before{content:"";width:5px;height:5px;border:1px solid var(--pageAccent);transform:rotate(45deg);box-shadow:0 0 9px color-mix(in srgb,var(--pageAccent) 62%,transparent)}
+.pro-grid{display:grid;gap:10px}
+.pro-panel{position:relative;overflow:hidden;border:1px solid rgba(112,210,255,.13);background:linear-gradient(145deg,rgba(7,17,29,.92),rgba(2,8,14,.82));box-shadow:0 20px 55px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.02);clip-path:polygon(0 0,calc(100% - 13px) 0,100% 13px,100% 100%,13px 100%,0 calc(100% - 13px));}
+.pro-panel::before{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 18%,rgba(180,245,255,.04) 47%,transparent 63%);transform:translateX(-115%);transition:transform .75s ease;pointer-events:none}
+.pro-panel:hover::before{transform:translateX(115%)}
+.pro-panel::after{content:"";position:absolute;right:10px;top:10px;width:5px;height:5px;background:var(--pageAccent);box-shadow:0 0 11px var(--pageAccent);opacity:.65}
+.pro-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:14px 15px 0}
+.pro-panel-head h3{font-size:10px;letter-spacing:.16em}
+.pro-panel-head p{font-size:8px;color:#58738e;margin-top:4px;line-height:1.5}
+.pro-panel-code{font-size:7px;letter-spacing:.15em;color:#52708b}
+.pro-body{padding:15px}
+
+/* ana sayfa — radar / komuta merkezi */
+.homeIntel{display:grid;grid-template-columns:1.08fr .92fr;gap:10px;margin-top:10px}
+.radarPanel{min-height:270px}
+.radarScene{position:relative;min-height:235px;margin:14px;border:1px solid rgba(104,218,255,.11);background:
+ radial-gradient(circle at 50% 50%,rgba(78,208,255,.075),transparent 28%),
+ repeating-radial-gradient(circle at 50% 50%,rgba(104,218,255,.12) 0 1px,transparent 1px 38px),
+ linear-gradient(transparent 49.5%,rgba(104,218,255,.08) 50%,transparent 50.5%),
+ linear-gradient(90deg,transparent 49.5%,rgba(104,218,255,.08) 50%,transparent 50.5%);overflow:hidden}
+.radarScene::before{content:"";position:absolute;left:50%;top:50%;width:170px;height:170px;border:1px solid rgba(122,226,255,.2);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 34px rgba(56,193,255,.06),inset 0 0 35px rgba(64,195,255,.035);animation:radarPulse 3.3s ease-in-out infinite}
+.radarScene::after{content:"";position:absolute;left:50%;top:50%;width:120%;height:2px;background:linear-gradient(90deg,transparent,var(--pageAccent),transparent);transform-origin:left center;animation:radarSweep 4.8s linear infinite;opacity:.55}
+.radarCore{position:absolute;left:50%;top:50%;width:26px;height:26px;transform:translate(-50%,-50%) rotate(45deg);border:1px solid var(--pageAccent);background:rgba(95,215,255,.08);box-shadow:0 0 28px rgba(80,207,255,.22);z-index:2}
+.radarCore::after{content:"";position:absolute;inset:7px;background:var(--pageAccent);box-shadow:0 0 18px var(--pageAccent)}
+.radarPing{position:absolute;width:8px;height:8px;border:1px solid var(--pageAccent);background:#dffaff;box-shadow:0 0 12px var(--pageAccent);transform:rotate(45deg);z-index:3}
+.radarPing.p1{left:23%;top:26%;animation:ping 2.3s infinite}.radarPing.p2{right:18%;top:34%;animation:ping 2.9s .6s infinite}.radarPing.p3{left:30%;bottom:19%;animation:ping 2.6s 1.1s infinite}
+.radarLegend{position:absolute;left:12px;right:12px;bottom:10px;display:flex;justify-content:space-between;color:#4d6c84;font-size:7px;letter-spacing:.11em}.radarLegend span{display:flex;align-items:center;gap:5px}.radarLegend i{width:5px;height:5px;background:var(--pageAccent);box-shadow:0 0 8px var(--pageAccent)}
+.homePulse{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.pulseCell{padding:12px;border:1px solid rgba(114,210,255,.09);background:rgba(2,9,17,.56);position:relative;overflow:hidden}
+.pulseCell small{font-size:7px;color:#52708a;letter-spacing:.14em}.pulseCell b{display:block;font-size:17px;margin-top:6px}.pulseCell em{display:block;font-style:normal;font-size:7px;color:#4e6d86;margin-top:3px}
+.homeTimeline{padding-bottom:4px}
+.homeTimelineList{padding:8px 15px 15px;display:grid;gap:8px}
+.timelineItem{display:grid;grid-template-columns:16px 1fr auto;gap:9px;align-items:center;padding:9px 10px;border-left:1px solid rgba(114,216,255,.18);background:linear-gradient(90deg,rgba(74,190,255,.04),transparent);position:relative}
+.timelineItem::before{content:"";position:absolute;left:-3px;width:5px;height:5px;background:var(--pageAccent);box-shadow:0 0 10px var(--pageAccent);transform:rotate(45deg)}
+.timelineItem span{font-size:8px;color:#7c98af}.timelineItem b{font-size:9px}.timelineItem small{font-size:7px;color:#47637d}
+@keyframes radarSweep{to{transform:rotate(360deg)}}
+@keyframes radarPulse{50%{transform:translate(-50%,-50%) scale(1.06);opacity:.55}}
+@keyframes ping{0%,100%{transform:rotate(45deg) scale(.85);opacity:.45}50%{transform:rotate(45deg) scale(1.35);opacity:1}}
+
+/* görevler — operasyon masası */
+.taskOps{display:grid;grid-template-columns:1.1fr .9fr;gap:10px;margin-top:10px}
+.opsBanner{padding:18px;background:linear-gradient(110deg,rgba(25,78,61,.28),rgba(5,16,20,.2));border:1px solid rgba(105,232,182,.16);position:relative;overflow:hidden}
+.opsBanner::before{content:"";position:absolute;right:-25px;top:-25px;width:130px;height:130px;border:1px solid rgba(115,255,198,.12);border-radius:50%;box-shadow:0 0 0 18px rgba(100,245,195,.02),0 0 0 36px rgba(100,245,195,.018)}
+.opsTitle{font-size:23px;font-weight:900;letter-spacing:-.03em;max-width:450px}.opsTitle span{color:#87ffd0;text-shadow:0 0 20px rgba(95,255,194,.22)}
+.opsSub{font-size:8px;color:#64857c;line-height:1.7;max-width:470px;margin-top:7px}
+.opsMeta{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.opsMeta span{padding:6px 8px;border:1px solid rgba(112,238,195,.12);background:rgba(8,24,22,.5);color:#73ad99;font-size:7px;letter-spacing:.1em}
+.taskProtocol{padding:0}
+.protocolRow{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(114,210,255,.07)}
+.protocolRow:last-child{border-bottom:0}.protocolIcon{width:28px;height:28px;border:1px solid rgba(120,224,255,.16);display:grid;place-items:center;color:#8fdfff;background:rgba(9,28,41,.58)}
+.protocolRow b{font-size:9px}.protocolRow small{display:block;margin-top:3px;font-size:7px;color:#536f86}.protocolState{font-size:7px;letter-spacing:.12em;color:#63879f}.protocolState.live{color:#6dffc1}.protocolState.done{color:#8bdfff}
+
+/* durum — harita / derece */
+.rankMap{display:grid;grid-template-columns:1fr 280px;gap:10px;margin-top:10px}
+.rankLadder{padding:14px;display:grid;gap:7px}
+.rankNode{display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:9px;padding:10px 12px;border:1px solid rgba(131,204,255,.08);background:rgba(6,14,25,.64);opacity:.52;position:relative}
+.rankNode.active{opacity:1;border-color:rgba(172,141,255,.34);box-shadow:0 0 20px rgba(142,109,255,.07);background:linear-gradient(90deg,rgba(133,104,255,.08),rgba(6,14,25,.52))}
+.rankNode .badge{width:20px;height:20px;display:grid;place-items:center;border:1px solid rgba(193,165,255,.28);color:#d8caff;font-size:7px}.rankNode b{font-size:9px}.rankNode small{font-size:7px;color:#526b82}.rankNode .gate{font-size:7px;color:#657f95}
+.statOrbit{min-height:250px;display:grid;place-items:center;position:relative;background:radial-gradient(circle,rgba(150,117,255,.07),transparent 55%)}
+.statOrbit .orbit{width:185px;height:185px;border:1px solid rgba(184,153,255,.25);border-radius:50%;position:relative;box-shadow:inset 0 0 36px rgba(149,107,255,.05),0 0 40px rgba(149,107,255,.04);animation:orbitSpin 15s linear infinite}
+.statOrbit .orbit::before{content:"";position:absolute;inset:26px;border:1px dashed rgba(170,140,255,.2);border-radius:50%}.statOrbit .orbit::after{content:"";position:absolute;inset:61px;border:1px solid rgba(173,144,255,.22);border-radius:50%}
+.orbitLabel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;z-index:2}.orbitLabel small{display:block;font-size:7px;color:#6c598a;letter-spacing:.18em}.orbitLabel b{display:block;font-size:26px;margin-top:4px;color:#e3dcff;text-shadow:0 0 20px rgba(184,159,255,.23)}
+.orbitDot{position:absolute;width:7px;height:7px;border-radius:50%;background:#e4ddff;box-shadow:0 0 12px #bb9cff}.od1{left:18%;top:23%}.od2{right:12%;top:44%}.od3{left:29%;bottom:12%}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+
+/* mağaza — premium vitrin */
+.marketSpotlight{display:grid;grid-template-columns:1.25fr .75fr;gap:10px;margin-top:10px}
+.legendarySpot{min-height:250px;padding:21px;position:relative;overflow:hidden;border:1px solid rgba(255,210,115,.22);background:
+ radial-gradient(circle at 78% 30%,rgba(255,212,122,.13),transparent 24%),
+ linear-gradient(125deg,rgba(48,33,12,.62),rgba(8,12,18,.94) 63%)}
+.legendarySpot::before{content:"";position:absolute;inset:12px;border:1px solid rgba(255,216,131,.09);clip-path:polygon(0 0,78% 0,100% 22%,100% 100%,22% 100%,0 78%);pointer-events:none}
+.legendarySpot::after{content:"EFSANEVİ // 01";position:absolute;right:16px;top:14px;color:rgba(255,226,155,.22);font-size:7px;letter-spacing:.2em}
+.legendaryCore{position:absolute;right:70px;top:54px;width:120px;height:120px;border:1px solid rgba(255,222,150,.34);transform:rotate(45deg);box-shadow:0 0 45px rgba(255,208,89,.1),inset 0 0 28px rgba(255,220,125,.05)}
+.legendaryCore::before{content:"";position:absolute;inset:21px;border:1px solid rgba(255,225,161,.26);animation:legendSpin 9s linear infinite}.legendaryCore::after{content:"✦";position:absolute;inset:0;display:grid;place-items:center;transform:rotate(-45deg);font-size:36px;color:#fff0bf;text-shadow:0 0 26px rgba(255,210,99,.7)}
+.legendKicker{color:#f6d992;font-size:8px;letter-spacing:.2em}.legendarySpot h2{font-size:31px;line-height:.98;letter-spacing:-.04em;max-width:510px;margin-top:12px}.legendarySpot h2 span{color:#ffe19a;text-shadow:0 0 22px rgba(255,215,120,.22)}.legendarySpot p{font-size:9px;color:#a28e6b;line-height:1.7;max-width:560px;margin-top:9px}.legendChips{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.legendChips span{padding:6px 8px;border:1px solid rgba(255,218,137,.14);background:rgba(26,19,8,.46);color:#cdb57c;font-size:7px}
+.marketLedger{padding:0}.ledgerHead{padding:15px;border-bottom:1px solid rgba(255,215,117,.1)}.ledgerHead h3{font-size:10px;letter-spacing:.18em}.ledgerHead p{font-size:7px;color:#7f6e50;margin-top:4px}.ledgerLine{display:flex;justify-content:space-between;gap:12px;padding:12px 15px;border-bottom:1px solid rgba(255,215,117,.07);font-size:8px}.ledgerLine span{color:#786b53}.ledgerLine b{color:#dec98d}.ledgerLine:last-child{border-bottom:0}
+@keyframes legendSpin{to{transform:rotate(360deg)}}
+
+/* profil — dijital kimlik kartı */
+.profileShowcase{display:grid;grid-template-columns:1fr .95fr;gap:10px;margin-top:10px}
+.idCard{min-height:265px;padding:17px;position:relative;overflow:hidden;border:1px solid rgba(140,207,255,.17);background:
+ linear-gradient(135deg,rgba(14,31,50,.84),rgba(4,11,19,.96)),
+ radial-gradient(circle at 20% 20%,rgba(103,211,255,.11),transparent 26%)}
+.idCard::before{content:"SİSTEM KİMLİĞİ";position:absolute;right:-22px;top:19px;transform:rotate(90deg);font-size:7px;color:rgba(152,212,255,.18);letter-spacing:.22em}
+.idCardGrid{display:grid;grid-template-columns:92px 1fr;gap:15px;align-items:center}.idPortrait{width:92px;height:118px;position:relative;border:1px solid rgba(127,220,255,.25);background:linear-gradient(145deg,#0e263e,#040a11);display:grid;place-items:center;overflow:hidden;clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 9px,100% calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,0 calc(100% - 9px),0 9px)}
+.idPortrait img{width:100%;height:100%;object-fit:cover}.idPortrait span{font-size:34px;color:#83e1ff;text-shadow:0 0 18px rgba(102,220,255,.55)}.idScan{position:absolute;left:0;right:0;height:1px;background:rgba(154,235,255,.48);box-shadow:0 0 10px rgba(111,223,255,.6);animation:idScan 2.6s ease-in-out infinite}.idMeta small{display:block;font-size:7px;color:#5f7c96;letter-spacing:.15em}.idMeta h2{font-size:25px;margin-top:5px;letter-spacing:-.03em;max-width:330px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.idMeta p{font-size:8px;color:#6b879e;line-height:1.6;margin-top:6px}.idSerial{margin-top:17px;padding-top:12px;border-top:1px solid rgba(112,209,255,.09);display:flex;justify-content:space-between;gap:12px}.idSerial span{font-size:7px;color:#52708a;letter-spacing:.14em}.idSerial b{font-size:8px;color:#b8d7e8;letter-spacing:.12em}
+.integrityPanel{padding:0}.integrityHead{padding:15px;border-bottom:1px solid rgba(112,209,255,.08)}.integrityHead h3{font-size:10px;letter-spacing:.18em}.integrityBody{padding:10px}.integrityRow{display:grid;grid-template-columns:10px 1fr auto;gap:9px;align-items:center;padding:11px 8px;border-bottom:1px solid rgba(112,209,255,.06)}.integrityRow:last-child{border-bottom:0}.integrityRow i{width:6px;height:6px;border-radius:50%;background:#63ffc0;box-shadow:0 0 10px rgba(99,255,192,.6)}.integrityRow b{font-size:8px}.integrityRow small{font-size:7px;color:#56718a;display:block;margin-top:2px}.integrityRow span{font-size:7px;color:#67eec0;letter-spacing:.1em}
+@keyframes idScan{0%,100%{top:7%}50%{top:91%}}
+
+/* alt navigasyonun daha zengin hissi */
+.bottom{background:linear-gradient(180deg,rgba(2,6,13,.62),rgba(1,4,9,.985));padding-top:9px}
+.nav{position:relative;padding-top:2px}
+.nav::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(125,221,255,.38),transparent);opacity:.8}
+.navBtn{position:relative;border-radius:2px}
+.navBtn.active{background:linear-gradient(180deg,rgba(78,191,255,.075),rgba(12,31,46,.14));border-color:rgba(111,218,255,.13)}
+.navBtn.active .navIcon{transform:translateY(-1px) scale(1.08);text-shadow:0 0 18px rgba(108,226,255,.65)}
+.navBtn.active small{color:#d6f6ff}
+.navBtn.active .navDot{box-shadow:0 0 12px #6edcff,0 0 3px #fff}
+
+@media(max-width:920px){.homeIntel,.taskOps,.rankMap,.marketSpotlight,.profileShowcase{grid-template-columns:1fr}.legendaryCore{right:26px}.statOrbit{min-height:220px}}
+@media(max-width:620px){.radarScene{min-height:200px}.radarScene::before{width:138px;height:138px}.legendarySpot{min-height:290px}.legendarySpot h2{font-size:25px;max-width:78%}.legendaryCore{width:88px;height:88px;right:24px;top:86px}.idCardGrid{grid-template-columns:74px 1fr}.idPortrait{width:74px;height:98px}.idMeta h2{font-size:19px}.profileShowcase,.homeIntel,.taskOps,.rankMap,.marketSpotlight{gap:8px}}
+
 </style>
 </head>
 <body>
@@ -391,6 +528,24 @@ body::after{animation:scanMove 8s linear infinite}
     </div>
     <div class="card activityCard"><div class="secHead" style="margin-bottom:8px"><h3>SİSTEM AKIŞI</h3><span>SON OLAYLAR</span></div><div id="activityFeed" class="activityFeed"></div></div>
   </div>
+  <div class="homeIntel">
+    <div class="pro-panel radarPanel">
+      <div class="pro-panel-head"><div><div class="pro-kicker">SİSTEM RADARI</div><p>Bugünkü performans alanının canlı taraması.</p></div><div class="pro-panel-code">R-07 / AKTİF</div></div>
+      <div class="radarScene"><div class="radarCore"></div><i class="radarPing p1"></i><i class="radarPing p2"></i><i class="radarPing p3"></i><div class="radarLegend"><span><i></i>GÜÇ</span><span><i></i>DAYANIKLILIK</span><span><i></i>DİSİPLİN</span></div></div>
+      <div class="homePulse"><div class="pulseCell"><small>BUGÜN XP</small><b id="homePulseXp">0</b><em>aktif kazanım</em></div><div class="pulseCell"><small>SERİ</small><b id="homePulseStreak">0 GÜN</b><em>mevcut zincir</em></div></div>
+    </div>
+    <div class="pro-panel homeTimeline">
+      <div class="pro-panel-head"><div><div class="pro-kicker">OPERASYON GÜNLÜĞÜ</div><p>Sistemin bugüne ayırdığı öncelikler.</p></div><div class="pro-panel-code">LOG / 05</div></div>
+      <div class="homeTimelineList">
+        <div class="timelineItem"><span>01</span><b>Günlük hedefi takip et</b><small>ÖNCELİKLİ</small></div>
+        <div class="timelineItem"><span>02</span><b>Hareket görevlerini tamamla</b><small>AKTİF</small></div>
+        <div class="timelineItem"><span>03</span><b>Seriyi koru</b><small id="homeTimelineStreak">0 GÜN</small></div>
+        <div class="timelineItem"><span>04</span><b>Jetonlarını akıllı harca</b><small id="homeTimelineCoins">0 J</small></div>
+        <div class="timelineItem"><span>05</span><b>Günü sistemle kapat</b><small id="homeTimelineDone">0 / 0</small></div>
+      </div>
+    </div>
+  </div>
+
   <div class="section"><div class="secHead"><h3>GÜNLÜK GÖREVLER</h3><span>BUGÜN</span></div><div class="card questBoard" id="homeTasks"></div></div>
   <div class="section grid g2"><div class="card streak"><div class="streakTop"><div><div class="label">MEVCUT SERİ</div><div class="streakBig"><span id="homeStreak">0</span><small style="font-size:12px;color:var(--muted);letter-spacing:.14em"> GÜN</small></div></div><div class="flame">🔥</div></div><div class="week" id="weekDays"></div></div><div class="card stat" style="display:flex;flex-direction:column;justify-content:center"><div class="sLabel">KOMUT MERKEZİ</div><div style="font-size:18px;font-weight:800;margin-top:7px">Bugünün kontrolünü eline al.</div><p style="font-size:9px;color:var(--muted);line-height:1.6;margin-top:7px">Görev panelinden ilerlemeni yönet veya mağazada kazandığın jetonları harca.</p><div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button class="btn primary" data-go="tasks">GÖREV PANELİ</button><button class="btn" data-go="shop">MAĞAZA</button></div></div></div>
 </section>
@@ -401,6 +556,21 @@ body::after{animation:scanMove 8s linear infinite}
     <div class="summaryCard"><div class="summaryLabel">BUGÜN KAZANILDI</div><div class="summaryValue green" id="taskXpEarned">0</div><div class="summarySub">XP</div></div>
     <div class="summaryCard"><div class="summaryLabel">KALAN GÖREV</div><div class="summaryValue gold" id="taskRemaining">6</div><div class="summarySub">görev</div></div>
   </div>
+  <div class="taskOps">
+    <div class="opsBanner">
+      <div class="pro-kicker">GÜNLÜK OPERASYON</div>
+      <div class="opsTitle">Bugünün protokolünü <span>temizle.</span></div>
+      <div class="opsSub">Görev sırasını kendi ritmine göre yönet. Her tamamlanan görev sistemde bir ilerleme izi bırakır; amaç tek seferde mükemmel olmak değil, protokolü gün içinde kapatmaktır.</div>
+      <div class="opsMeta"><span>XP AKIŞI AÇIK</span><span>JETON ÖDÜLÜ AÇIK</span><span>GERİ ALMA AKTİF</span></div>
+    </div>
+    <div class="pro-panel taskProtocol">
+      <div class="pro-panel-head"><div><div class="pro-kicker">PROTOKOL KATMANLARI</div><p>Görevlerin sistem içindeki rolü.</p></div></div>
+      <div class="protocolRow"><div class="protocolIcon">01</div><div><b>HAREKET</b><small>Güç / dayanıklılık</small></div><span class="protocolState live">AKTİF</span></div>
+      <div class="protocolRow"><div class="protocolIcon">02</div><div><b>TOPARLANMA</b><small>Su / uyku / esneme</small></div><span class="protocolState">TAKİPTE</span></div>
+      <div class="protocolRow"><div class="protocolIcon">03</div><div><b>DİSİPLİN</b><small>Günlük devamlılık</small></div><span class="protocolState">TAKİPTE</span></div>
+      <div class="protocolRow"><div class="protocolIcon">04</div><div><b>ÖZEL GÖREV</b><small>Kullanıcı tanımlı</small></div><span class="protocolState">AÇIK</span></div>
+    </div>
+  </div>
   <div class="card stat" style="margin-bottom:10px"><div class="sLabel">GÜNLÜK TAMAMLAMA</div><div style="display:flex;justify-content:space-between;align-items:end;gap:12px"><div style="font-size:26px;font-weight:800;margin-top:6px"><span id="taskProgress">0</span> / <span id="taskTotal">6</span></div><button class="btn" id="addTaskBtn">+ GÖREV EKLE</button></div><div class="xpBar" style="margin-top:11px"><i id="questProgressBar"></i></div></div>
   <div class="card questBoard" id="taskPageList"></div>
   <div class="section card stat"><div class="secHead" style="margin:0 0 10px"><h3>CEZA PROTOKOLÜ</h3><span>GÜVENLİK</span></div><p style="font-size:9px;color:var(--muted);line-height:1.7">Gün eksik kapatılırsa sistem isteğe bağlı olarak XP kesebilir. Bu ayar Profil bölümünden değiştirilebilir.</p></div>
@@ -408,6 +578,19 @@ body::after{animation:scanMove 8s linear infinite}
 <section class="page" id="page-streak">
   <div class="systemTitle"><div><h1>DURUM // İLERLEME ANALİZİ</h1><p>Performans kayıtları, rütbe ilerlemesi ve başarımlar.</p></div></div>
   <div class="grid g3"><div class="card stat"><div class="sLabel">MEVCUT SERİ</div><div class="sValue green" id="statsStreak">0</div><div class="sSub">gün</div><div class="line"></div></div><div class="card stat"><div class="sLabel">EN UZUN SERİ</div><div class="sValue" id="longestStreak">0</div><div class="sSub">gün</div><div class="line"></div></div><div class="card stat"><div class="sLabel">TOPLAM XP</div><div class="sValue" id="totalXp">0</div><div class="sSub">tüm zamanlar</div><div class="line"></div></div></div>
+  <div class="rankMap">
+    <div class="pro-panel"><div class="pro-panel-head"><div><div class="pro-kicker">RÜTBE AĞACI</div><p>Seviyen yükseldikçe yeni katmanlar açılır.</p></div><div class="pro-panel-code">RANK / LIVE</div></div>
+      <div class="rankLadder">
+        <div class="rankNode" data-rank="E"><div class="badge">E</div><div><b>E-SINIFI</b><small>Başlangıç katmanı</small></div><span class="gate">SV. 1+</span></div>
+        <div class="rankNode" data-rank="D"><div class="badge">D</div><div><b>D-SINIFI</b><small>Temel disiplin</small></div><span class="gate">SV. 4+</span></div>
+        <div class="rankNode" data-rank="C"><div class="badge">C</div><div><b>C-SINIFI</b><small>İstikrarlı gelişim</small></div><span class="gate">SV. 7+</span></div>
+        <div class="rankNode" data-rank="B"><div class="badge">B</div><div><b>B-SINIFI</b><small>Yüksek süreklilik</small></div><span class="gate">SV. 12+</span></div>
+        <div class="rankNode" data-rank="A"><div class="badge">A</div><div><b>A-SINIFI</b><small>İleri kontrol</small></div><span class="gate">SV. 20+</span></div>
+        <div class="rankNode" data-rank="S"><div class="badge">S</div><div><b>S-SINIFI</b><small>Son katman</small></div><span class="gate">SV. 30+</span></div>
+      </div>
+    </div>
+    <div class="pro-panel statOrbit"><div class="orbit"><i class="orbitDot od1"></i><i class="orbitDot od2"></i><i class="orbitDot od3"></i></div><div class="orbitLabel"><small>TOPLAM XP</small><b id="statusOrbitXp">0</b></div></div>
+  </div>
   <div class="section card stat"><div class="secHead"><h3>RÜTBE ANALİZİ</h3><span id="statusRankLabel">E-SINIFI</span></div><div style="display:flex;justify-content:space-between;align-items:end"><div><div class="label">MEVCUT RÜTBE</div><div style="font-size:25px;font-weight:900;margin-top:5px" id="statusRankBig">E-SINIFI</div></div><div style="text-align:right"><div class="label">SONRAKİ RÜTBE</div><div style="font-size:11px;color:var(--cyan);margin-top:5px" id="statusNextRank">D-SINIFI</div></div></div><div class="rankMeter"><div class="rankMeterTop"><span>SEVİYE İLERLEMESİ</span><b id="statusLevelPct">0%</b></div><div class="xpBar"><i id="statusLevelBar"></i></div></div></div>
   <div class="section card stat"><div class="secHead"><h3>PERFORMANS MATRİSİ</h3><span>ANALİZ</span></div><div class="field"><div style="display:flex;justify-content:space-between;font-size:8px;color:var(--muted)"><span>GÖREV TAMAMLAMA</span><b id="completionPct">0%</b></div><div class="xpBar"><i id="completionBar"></i></div></div><div class="field"><div style="display:flex;justify-content:space-between;font-size:8px;color:var(--muted)"><span>SEVİYE İLERLEMESİ</span><b id="levelPct">0%</b></div><div class="xpBar"><i id="levelBar"></i></div></div><div class="field"><div style="display:flex;justify-content:space-between;font-size:8px;color:var(--muted)"><span>7 GÜNLÜK SERİ HEDEFİ</span><b id="streakPct">0%</b></div><div class="xpBar"><i id="streakBar"></i></div></div></div>
   <div class="section"><div class="secHead"><h3>BAŞARIMLAR</h3><span>KİLİT AÇILABİLİR</span></div><div class="grid g2" id="achievements"></div></div>
@@ -422,6 +605,23 @@ body::after{animation:scanMove 8s linear infinite}
       <div class="shopHeroStats"><div class="microStat">BAKİYE <b><span id="shopHeroCoins">0</span> J</b></div><div class="microStat">SATIN ALMA <b id="shopPurchaseCount">0</b></div><div class="microStat">ÖZEL TEKLİF <b>1</b></div></div>
     </div>
     <div class="card marketCard"><div class="marketIcon">◇</div><h3>GÜNLÜK MARKET KURALI</h3><p>Jetonlar görevlerden kazanılır. Ödüller satın alındığında sistem üzerinde kayıt oluşturulur. Gerçek hayattaki ödüller senin belirlediğin kurallara bağlıdır.</p><div class="marketLine"></div><div style="font-size:8px;color:#607890;margin-top:9px">SİSTEM DURUMU • <span style="color:var(--green)">AÇIK</span></div></div>
+  </div>
+  <div class="marketSpotlight">
+    <div class="legendarySpot">
+      <div class="legendKicker">ÖZEL ÜRÜN // EFSANEVİ</div>
+      <h2>MR.KADİR'DEN <span>ÖZEL DERS</span></h2>
+      <p>Mağazanın premium eğitim hakkı. Biriktirdiğin jetonları doğrudan kişisel öğrenme deneyimine dönüştür. Konu seçimini ve ders planını kendi hedefin belirler.</p>
+      <div class="legendChips"><span>45 DAKİKA</span><span>KİŞİYE ÖZEL</span><span>GERİ BİLDİRİM</span></div><button class="btn ghost" style="margin-top:15px;border-color:rgba(255,218,137,.22);color:#f1d695" onclick="openShopDetail('lesson')">ÜRÜNÜ İNCELE // 1.500 J</button>
+      <div class="legendaryCore"></div>
+    </div>
+    <div class="pro-panel marketLedger">
+      <div class="ledgerHead"><h3>MARKET DEFTERİ</h3><p>Bu vitrindeki işlemler sistem geçmişine yazılır.</p></div>
+      <div class="ledgerLine"><span>Ürün tipi</span><b>EĞİTİM</b></div>
+      <div class="ledgerLine"><span>Nadirlik</span><b>EFSANEVİ</b></div>
+      <div class="ledgerLine"><span>Takas bedeli</span><b>1.500 J</b></div>
+      <div class="ledgerLine"><span>Kullanım</span><b>1 HAK</b></div>
+      <div class="ledgerLine"><span>Durum</span><b>LIMITLI</b></div>
+    </div>
   </div>
   <div class="section card wallet"><div><div class="label">MEVCUT BAKİYE</div><div class="walletAmt"><span id="shopCoins">0</span> <small style="font-size:10px;color:var(--muted)">JETON</small></div></div><div style="font-size:9px;color:var(--muted);line-height:1.6;max-width:350px">Görevlerden kazanılan jetonları burada takas edebilirsin. Ürünleri önce inceleyebilir, ardından satın alma işlemini onaylayabilirsin.</div></div>
   <div class="section shopTools"><input id="shopSearch" class="shopSearch" placeholder="Mağazada ara..." autocomplete="off"><button class="filterBtn active" data-filter="all">TÜMÜ</button><button class="filterBtn" data-filter="dinlenme">DİNLENME</button><button class="filterBtn" data-filter="eğitim">EĞİTİM</button><button class="filterBtn" data-filter="kişisel">KİŞİSEL</button><button class="filterBtn" data-filter="özel">ÖZEL</button></div>
@@ -438,6 +638,18 @@ body::after{animation:scanMove 8s linear infinite}
     <div class="profileIdentity"><div class="identityMini"><small>RÜTBE</small><b id="profileMiniRank">E-SINIFI</b></div><div class="identityMini"><small>SEVİYE</small><b id="profileMiniLevel">1</b></div><div class="identityMini"><small>TOPLAM XP</small><b id="profileMiniXp">0</b></div><div class="identityMini"><small>JETON</small><b id="profileMiniCoins">0</b></div></div>
     <div class="rankMeter"><div class="rankMeterTop"><span>SİSTEM KİMLİK İLERLEMESİ</span><b id="profileRankPct">0%</b></div><div class="xpBar"><i id="profileRankBar"></i></div></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:15px"><button class="btn primary" id="saveProfile">PROFİLİ KAYDET</button><button class="btn ghost" id="removeAvatar">FOTOĞRAFI KALDIR</button></div>
+  </div>
+  <div class="profileShowcase">
+    <div class="idCard">
+      <div class="idCardGrid"><div class="idPortrait"><span id="showcaseAvatarFallback">◉</span><img id="showcaseAvatarImg" alt="Sistem kimliği" style="display:none"><i class="idScan"></i></div><div class="idMeta"><small>SİSTEM OYUNCUSU</small><h2 id="showcaseName">Avcı</h2><p id="showcaseSummary">Kimlik profili aktif. Sistem, oyuncunun kişisel ilerleme verilerini bu panel üzerinden takip eder.</p></div></div>
+      <div class="idSerial"><span>ID KODU</span><b id="showcaseSerial">SV-01 / LOCAL</b></div>
+    </div>
+    <div class="pro-panel integrityPanel"><div class="integrityHead"><h3>SİSTEM BÜTÜNLÜK KONTROLÜ</h3></div><div class="integrityBody">
+      <div class="integrityRow"><i></i><div><b>Profil durumu</b><small>Oyuncu kimliği yanıt veriyor.</small></div><span>AKTİF</span></div>
+      <div class="integrityRow"><i></i><div><b>İlerleme çekirdeği</b><small>XP / seviye / seri verileri yüklendi.</small></div><span>OK</span></div>
+      <div class="integrityRow"><i></i><div><b>Ödül cüzdanı</b><small>Jeton bakiyesi hazır.</small></div><span>OK</span></div>
+      <div class="integrityRow"><i></i><div><b>Profil medyası</b><small>Avatar kanalı kullanılabilir.</small></div><span>HAZIR</span></div>
+    </div></div>
   </div>
   <div class="section card googlePanel"><div class="googleInfo"><div class="googleMark">G</div><div class="googleStatus"><b>Google hesabıyla giriş</b><span id="googleStatusText">Google hesabını bağlamak için aşağıdaki düğmeyi kullan.</span></div></div><div class="googleButtonWrap" id="googleButtonWrap"><div id="g_id_signin"></div></div><div class="loginAccount" id="loginAccount"><img id="loginAccountImg" alt="Google profil fotoğrafı"><div><div id="loginAccountName" style="font-size:10px;font-weight:800"></div><div id="loginAccountEmail" style="font-size:8px;color:var(--muted);margin-top:2px"></div></div><button class="btn ghost" id="googleLogout">ÇIKIŞ</button></div></div>
   <div class="section card stat"><div class="secHead" style="margin:0 0 10px"><h3>SİSTEM KURALLARI</h3><span>AYARLAR</span></div><label style="display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:9px;color:#94afc6">Gün kaçırınca 50 XP cezası uygula <input id="penaltyToggle" type="checkbox" style="width:18px;height:18px;accent-color:#55d4ff"></label></div>
@@ -536,9 +748,9 @@ function closeShopDetail(){document.getElementById('shopDetailModal').classList.
 function buyItem(id){const x=SHOP.find(i=>i.id===id);if(!x)return;if(state.coins<x.price){showToast('SİSTEM REDDETTİ • YETERLİ JETON YOK');openShopDetail(id);return}state.coins-=x.price;state.purchased[id]=(state.purchased[id]||0)+1;state.spentCoins=(state.spentCoins||0)+x.price;if(!Array.isArray(state.purchases))state.purchases=[];state.purchases.push({id:x.id,name:x.name,price:x.price,date:new Date().toLocaleString('tr-TR',{dateStyle:'short',timeStyle:'short'})});save();render();closeShopDetail();showReward(x.premium?'ÖZEL ÖDÜL AÇILDI':'ÖDÜL AÇILDI',`${x.name} takas edildi.`)}
 
 function renderWeek(){const box=document.getElementById('weekDays'),names=['PZT','SAL','ÇAR','PER','CUM','CMT','PAZ'],now=new Date(),day=now.getDay()||7,monday=new Date(now);monday.setDate(now.getDate()-day+1);let h='';for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const k=iso(d),today=k===todayKey(),done=(k===state.lastCompletedDate&&k!==today)||(today&&state.todayDone.length===state.tasks.length);h+=`<div class="day ${done?'done':''} ${today?'today':''}"><small>${names[i]}</small><b>${done?'✓':d.getDate()}</b></div>`}box.innerHTML=h}
-function renderStats(){document.getElementById('statsStreak').textContent=state.currentStreak;document.getElementById('longestStreak').textContent=state.longestStreak;document.getElementById('totalXp').textContent=state.totalXp;const completion=Math.min(100,Math.round(state.totalCompleted/(Math.max(1,state.totalCompleted+state.tasks.length*2))*100));document.getElementById('completionPct').textContent=completion+'%';document.getElementById('completionBar').style.width=completion+'%';const need=levelNeeded(state.level),lp=Math.round(state.xp/need*100);document.getElementById('levelPct').textContent=lp+'%';document.getElementById('levelBar').style.width=lp+'%';const sp=Math.min(100,Math.round(state.currentStreak/7*100));document.getElementById('streakPct').textContent=sp+'%';document.getElementById('streakBar').style.width=sp+'%';document.getElementById('statusRankLabel').textContent=rankFor(state.level);document.getElementById('statusRankBig').textContent=rankFor(state.level);document.getElementById('statusNextRank').textContent=nextRankFor(state.level);document.getElementById('statusLevelPct').textContent=lp+'%';document.getElementById('statusLevelBar').style.width=lp+'%';document.getElementById('achievements').innerHTML=ACHIEVEMENTS.map(a=>{const ok=a.check(state);return `<div class="card achievement ${ok?'':'locked'}"><div class="achRow"><div class="achIcon">${a.icon}</div><div><div class="achName">${a.name}</div><div class="achDesc">${a.desc}</div></div><div class="achState">${ok?'AÇILDI':'KİLİTLİ'}</div></div></div>`}).join('')}
-function renderProfile(){document.getElementById('profileName').textContent=state.name||'Avcı';document.getElementById('profileRank').textContent=`${rankFor(state.level)} • SEVİYE ${state.level}`;document.getElementById('nameInput').value=state.name||'';document.getElementById('goalInput').value=state.goal;document.getElementById('penaltyToggle').checked=!!state.penalty;const has=!!state.avatarData;document.getElementById('avatarFallback').style.display=has?'none':'grid';document.getElementById('avatarImg').style.display=has?'block':'none';document.getElementById('avatarImg').src=has?state.avatarData:'';document.getElementById('topAvatarFallback').style.display=has?'none':'inline';document.getElementById('topAvatarImg').style.display=has?'block':'none';document.getElementById('topAvatarImg').src=has?state.avatarData:'';const g=state.google&&state.google.loggedIn;document.getElementById('googleStatusText').textContent=g?`${state.google.email} hesabı bağlı.`:'Google hesabını bağlamak için aşağıdaki düğmeyi kullan.';document.getElementById('googleMiniStatus').textContent=g?`Google hesabı bağlı • ${state.google.email}`:'Yerel profil aktif';document.getElementById('googleButtonWrap').style.display=g?'none':'flex';document.getElementById('loginAccount').classList.toggle('show',!!g);if(g){document.getElementById('loginAccountName').textContent=state.google.name||state.name;document.getElementById('loginAccountEmail').textContent=state.google.email||'';document.getElementById('loginAccountImg').src=state.google.picture||''}const need=levelNeeded(state.level),p=Math.round(state.xp/need*100);document.getElementById('profileMiniRank').textContent=rankFor(state.level);document.getElementById('profileMiniLevel').textContent=state.level;document.getElementById('profileMiniXp').textContent=state.totalXp;document.getElementById('profileMiniCoins').textContent=state.coins;document.getElementById('profileRankPct').textContent=p+'%';document.getElementById('profileRankBar').style.width=p+'%';const topName=document.getElementById('topIdentityName');const topRank=document.getElementById('topIdentityRank');const topImg=document.getElementById('topIdentityImg');const topFallback=document.getElementById('topIdentityFallback');if(topName)topName.textContent=state.name||'Avcı';if(topRank)topRank.textContent=`${rankFor(state.level)} • SV. ${state.level}`;if(topImg&&topFallback){const topSrc=state.avatarData||state.google?.picture||'';topImg.style.display=topSrc?'block':'none';topFallback.style.display=topSrc?'none':'grid';topImg.src=topSrc||'';}}
-function render(){normalizeDay(state);const need=levelNeeded(state.level),pct=Math.min(100,state.xp/need*100);document.getElementById('levelValue').textContent=state.level;document.getElementById('xpValue').textContent=state.xp;document.getElementById('xpNeeded').textContent=need;document.getElementById('xpBar').style.width=pct+'%';document.getElementById('rankLabel').textContent=rankFor(state.level);document.getElementById('nextRank').textContent=nextRankFor(state.level);document.getElementById('targetRead').textContent=`${state.todayXp} / ${state.goal} XP`;document.getElementById('todayXp').textContent=state.todayXp;document.getElementById('streakValue').textContent=state.currentStreak;document.getElementById('homeStreak').textContent=state.currentStreak;document.getElementById('doneCount').textContent=`${state.todayDone.length}/${state.tasks.length}`;document.getElementById('coinValue').textContent=state.coins;document.getElementById('shopCoins').textContent=state.coins;document.getElementById('taskProgress').textContent=state.todayDone.length;document.getElementById('taskTotal').textContent=state.tasks.length;document.getElementById('questProgressBar').style.width=(state.todayDone.length/Math.max(1,state.tasks.length)*100)+'%';document.getElementById('taskXpPotential').textContent=state.tasks.reduce((a,t)=>a+t.xp,0)+50;document.getElementById('taskXpEarned').textContent=state.todayXp;document.getElementById('taskRemaining').textContent=Math.max(0,state.tasks.length-state.todayDone.length);document.getElementById('greeting').textContent=`${state.name||'Avcı'}, sistem hazır. Bugünün görevlerini tamamla ve ${state.goal} XP hedefine ulaş.`;renderTasks('homeTasks');renderTasks('taskPageList');renderWeek();renderStats();renderProfile();renderShop();renderMission();renderActivity()}
+function renderStats(){document.getElementById('statsStreak').textContent=state.currentStreak;document.getElementById('longestStreak').textContent=state.longestStreak;document.getElementById('totalXp').textContent=state.totalXp;const completion=Math.min(100,Math.round(state.totalCompleted/(Math.max(1,state.totalCompleted+state.tasks.length*2))*100));document.getElementById('completionPct').textContent=completion+'%';document.getElementById('completionBar').style.width=completion+'%';const need=levelNeeded(state.level),lp=Math.round(state.xp/need*100);document.getElementById('levelPct').textContent=lp+'%';document.getElementById('levelBar').style.width=lp+'%';const sp=Math.min(100,Math.round(state.currentStreak/7*100));document.getElementById('streakPct').textContent=sp+'%';document.getElementById('streakBar').style.width=sp+'%';document.getElementById('statusRankLabel').textContent=rankFor(state.level);document.getElementById('statusRankBig').textContent=rankFor(state.level);document.getElementById('statusNextRank').textContent=nextRankFor(state.level);document.getElementById('statusLevelPct').textContent=lp+'%';document.getElementById('statusLevelBar').style.width=lp+'%';document.getElementById('achievements').innerHTML=ACHIEVEMENTS.map(a=>{const ok=a.check(state);return `<div class="card achievement ${ok?'':'locked'}"><div class="achRow"><div class="achIcon">${a.icon}</div><div><div class="achName">${a.name}</div><div class="achDesc">${a.desc}</div></div><div class="achState">${ok?'AÇILDI':'KİLİTLİ'}</div></div></div>`}).join('');const r=rankFor(state.level);document.querySelectorAll('.rankNode').forEach(n=>n.classList.toggle('active',n.dataset.rank===r.charAt(0)));const ox=document.getElementById('statusOrbitXp');if(ox)ox.textContent=state.totalXp;}
+function renderProfile(){document.getElementById('profileName').textContent=state.name||'Avcı';document.getElementById('profileRank').textContent=`${rankFor(state.level)} • SEVİYE ${state.level}`;document.getElementById('nameInput').value=state.name||'';document.getElementById('goalInput').value=state.goal;document.getElementById('penaltyToggle').checked=!!state.penalty;const has=!!state.avatarData;document.getElementById('avatarFallback').style.display=has?'none':'grid';document.getElementById('avatarImg').style.display=has?'block':'none';document.getElementById('avatarImg').src=has?state.avatarData:'';document.getElementById('topAvatarFallback').style.display=has?'none':'inline';document.getElementById('topAvatarImg').style.display=has?'block':'none';document.getElementById('topAvatarImg').src=has?state.avatarData:'';const g=state.google&&state.google.loggedIn;document.getElementById('googleStatusText').textContent=g?`${state.google.email} hesabı bağlı.`:'Google hesabını bağlamak için aşağıdaki düğmeyi kullan.';document.getElementById('googleMiniStatus').textContent=g?`Google hesabı bağlı • ${state.google.email}`:'Yerel profil aktif';document.getElementById('googleButtonWrap').style.display=g?'none':'flex';document.getElementById('loginAccount').classList.toggle('show',!!g);if(g){document.getElementById('loginAccountName').textContent=state.google.name||state.name;document.getElementById('loginAccountEmail').textContent=state.google.email||'';document.getElementById('loginAccountImg').src=state.google.picture||''}const need=levelNeeded(state.level),p=Math.round(state.xp/need*100);document.getElementById('profileMiniRank').textContent=rankFor(state.level);document.getElementById('profileMiniLevel').textContent=state.level;document.getElementById('profileMiniXp').textContent=state.totalXp;document.getElementById('profileMiniCoins').textContent=state.coins;document.getElementById('profileRankPct').textContent=p+'%';document.getElementById('profileRankBar').style.width=p+'%';const topName=document.getElementById('topIdentityName');const topRank=document.getElementById('topIdentityRank');const topImg=document.getElementById('topIdentityImg');const topFallback=document.getElementById('topIdentityFallback');if(topName)topName.textContent=state.name||'Avcı';if(topRank)topRank.textContent=`${rankFor(state.level)} • SV. ${state.level}`;if(topImg&&topFallback){const topSrc=state.avatarData||state.google?.picture||'';topImg.style.display=topSrc?'block':'none';topFallback.style.display=topSrc?'none':'grid';topImg.src=topSrc||'';}const sn=document.getElementById('showcaseName');if(sn)sn.textContent=state.name||'Avcı';const ss=document.getElementById('showcaseSummary');if(ss)ss.textContent=`${rankFor(state.level)} rütbesindeki oyuncu profili. ${state.totalXp} toplam XP ve ${state.currentStreak} günlük mevcut seri sistem tarafından izleniyor.`;const serial=document.getElementById('showcaseSerial');if(serial)serial.textContent=`SV-${String(state.level).padStart(2,'0')} / ${state.google?.loggedIn?'GOOGLE':'LOCAL'}`;const si=document.getElementById('showcaseAvatarImg'),sf=document.getElementById('showcaseAvatarFallback');if(si&&sf){const src=state.avatarData||state.google?.picture||'';si.style.display=src?'block':'none';sf.style.display=src?'none':'grid';si.src=src||'';}}
+function render(){normalizeDay(state);const need=levelNeeded(state.level),pct=Math.min(100,state.xp/need*100);document.getElementById('levelValue').textContent=state.level;document.getElementById('xpValue').textContent=state.xp;document.getElementById('xpNeeded').textContent=need;document.getElementById('xpBar').style.width=pct+'%';document.getElementById('rankLabel').textContent=rankFor(state.level);document.getElementById('nextRank').textContent=nextRankFor(state.level);document.getElementById('targetRead').textContent=`${state.todayXp} / ${state.goal} XP`;document.getElementById('todayXp').textContent=state.todayXp;document.getElementById('streakValue').textContent=state.currentStreak;document.getElementById('homeStreak').textContent=state.currentStreak;document.getElementById('doneCount').textContent=`${state.todayDone.length}/${state.tasks.length}`;document.getElementById('coinValue').textContent=state.coins;document.getElementById('shopCoins').textContent=state.coins;document.getElementById('taskProgress').textContent=state.todayDone.length;document.getElementById('taskTotal').textContent=state.tasks.length;document.getElementById('questProgressBar').style.width=(state.todayDone.length/Math.max(1,state.tasks.length)*100)+'%';document.getElementById('taskXpPotential').textContent=state.tasks.reduce((a,t)=>a+t.xp,0)+50;document.getElementById('taskXpEarned').textContent=state.todayXp;document.getElementById('taskRemaining').textContent=Math.max(0,state.tasks.length-state.todayDone.length);document.getElementById('greeting').textContent=`${state.name||'Avcı'}, sistem hazır. Bugünün görevlerini tamamla ve ${state.goal} XP hedefine ulaş.`;const hx=document.getElementById('homePulseXp');if(hx)hx.textContent=state.todayXp;const hs=document.getElementById('homePulseStreak');if(hs)hs.textContent=state.currentStreak+' GÜN';const ht=document.getElementById('homeTimelineStreak');if(ht)ht.textContent=state.currentStreak+' GÜN';const hc=document.getElementById('homeTimelineCoins');if(hc)hc.textContent=state.coins+' J';const hd=document.getElementById('homeTimelineDone');if(hd)hd.textContent=`${state.todayDone.length} / ${state.tasks.length}`;renderTasks('homeTasks');renderTasks('taskPageList');renderWeek();renderStats();renderProfile();renderShop();renderMission();renderActivity()}
 function gotoPage(n){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+n).classList.add('active');document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.page===n));window.scrollTo({top:0,behavior:'smooth'})}
 function showToast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(showToast.t);showToast.t=setTimeout(()=>e.classList.remove('show'),2200)}
 function showReward(t,p){const e=document.getElementById('reward');document.getElementById('rewardTitle').textContent=t;document.getElementById('rewardText').textContent=p;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1900)}

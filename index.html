@@ -121,6 +121,41 @@ button,a{cursor:pointer!important}input,textarea,select{cursor:text}
 @keyframes mehlikaNoticeIn{0%{opacity:0;transform:scale(.78) translateY(18px)}52%{opacity:1;transform:scale(1.03) translateY(0)}100%{opacity:1;transform:scale(1)}}
 @media(max-width:620px){.portal{width:230px}.portalLabel{bottom:8%;font-size:7px}.mehlikaNotice{padding:23px 18px 20px}.mehlikaMessage{font-size:9px}}
 
+
+/* === ÇANTA / ENVANTER === */
+.bagBtn{position:relative}
+.bagBtn .bagCount{position:absolute;right:-3px;top:-4px;min-width:16px;height:16px;padding:0 4px;display:grid;place-items:center;border:1px solid #9beeff;background:#061626;color:#9beeff;font-size:7px;font-weight:900;border-radius:999px;box-shadow:0 0 12px rgba(75,201,255,.22)}
+.inventoryModal{width:min(760px,100%)}
+.inventoryWrap{display:grid;gap:14px}
+.inventoryHeadCard{padding:15px;border:1px solid rgba(112,214,255,.14);background:linear-gradient(145deg,rgba(16,45,69,.42),rgba(3,11,19,.72));display:flex;align-items:center;justify-content:space-between;gap:14px}
+.inventoryBalance{font-size:8px;color:var(--muted);letter-spacing:.12em}.inventoryBalance strong{display:block;color:var(--gold);font-size:24px;letter-spacing:.02em;margin-top:4px}
+.inventoryGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.inventoryItem{position:relative;padding:15px;border:1px solid rgba(94,196,255,.15);background:linear-gradient(150deg,rgba(8,22,37,.96),rgba(3,10,18,.96));overflow:hidden}
+.inventoryItem::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(93,209,255,.06) 50%,transparent 70%);transform:translateX(-120%);animation:inventorySheen 4.6s ease-in-out infinite}
+.inventoryItem.lessonItem{border-color:rgba(255,218,137,.26);box-shadow:inset 0 0 32px rgba(255,211,115,.035)}
+.inventoryTop{display:flex;align-items:center;gap:10px}.inventoryIcon{width:42px;height:42px;display:grid;place-items:center;border:1px solid rgba(103,210,255,.22);background:#071727;font-size:20px}.inventoryItem.lessonItem .inventoryIcon{border-color:rgba(255,220,145,.35);color:#ffe18a}
+.inventoryName{font-size:11px;font-weight:900}.inventoryMeta{font-size:8px;color:var(--muted);margin-top:3px}.inventoryDesc{font-size:8px;line-height:1.6;color:#7892a8;margin:10px 0 12px;min-height:27px}.inventoryFoot{display:flex;align-items:center;justify-content:space-between;gap:8px}.inventoryQty{font-size:8px;color:#89a5bc}.inventoryQty b{color:var(--white)}
+.inventoryEmpty{padding:32px;text-align:center;border:1px dashed rgba(99,204,255,.14);color:var(--muted);font-size:9px;line-height:1.8}
+@keyframes inventorySheen{0%,70%{transform:translateX(-120%)}86%,100%{transform:translateX(120%)}}
+/* === MR.KADİR / SOHBET EKRANI === */
+.chatLoading{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:7200;background:rgba(1,5,9,.84);backdrop-filter:blur(12px)}
+.chatLoading.active{display:flex}
+.chatLoadingBox{width:min(320px,calc(100% - 30px));padding:24px;text-align:center;border:1px solid rgba(98,207,255,.36);background:linear-gradient(145deg,#081b2c,#030a12);box-shadow:0 30px 90px rgba(0,0,0,.7)}
+.chatSpinner{width:48px;height:48px;margin:0 auto 14px;border:2px solid rgba(119,223,255,.15);border-top-color:#8deaff;border-right-color:#3da4ff;border-radius:50%;animation:spinChat .8s linear infinite;box-shadow:0 0 24px rgba(60,186,255,.2)}
+.chatLoadingTitle{font-size:11px;font-weight:900;letter-spacing:.14em}.chatLoadingText{font-size:8px;color:var(--muted);line-height:1.7;margin-top:6px}
+@keyframes spinChat{to{transform:rotate(360deg)}}
+.chatModal{width:min(430px,100%);height:min(670px,calc(100vh - 30px));display:flex;flex-direction:column;overflow:hidden;border-color:rgba(97,220,255,.22);background:#0b141d}
+.chatHeader{height:66px;display:flex;align-items:center;gap:11px;padding:10px 13px;background:linear-gradient(180deg,#15384a,#102b39);border-bottom:1px solid rgba(124,222,255,.18)}
+.chatHeaderAvatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,#b9f5ff,#55bde4 35%,#143849 70%);color:#06121b;font-weight:900;border:2px solid rgba(201,249,255,.65);box-shadow:0 0 18px rgba(105,220,255,.24)}
+.chatHeadText{flex:1}.chatHeadText b{display:block;font-size:12px;color:#effcff}.chatHeadText span{font-size:8px;color:#a5d0df}.chatClose{width:31px;height:31px;border:0;background:transparent;color:#cce9f3;font-size:22px;cursor:pointer}
+.chatBody{flex:1;padding:17px 13px;background-color:#0b141d;background-image:radial-gradient(circle at 20% 20%,rgba(48,117,138,.11) 1px,transparent 1px),radial-gradient(circle at 80% 60%,rgba(48,117,138,.08) 1px,transparent 1px);background-size:20px 20px;overflow:auto}
+.chatDate{width:max-content;margin:0 auto 13px;padding:6px 10px;border-radius:8px;background:#1a2b35;color:#8caeb9;font-size:7px;letter-spacing:.08em}
+.chatBubble{max-width:82%;padding:9px 11px;border-radius:9px 9px 9px 2px;background:#17313e;color:#e6f8fb;font-size:9px;line-height:1.6;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.chatBubble b{display:block;color:#89e2fa;font-size:8px;margin-bottom:3px}.chatTime{float:right;color:#73939c;font-size:6px;margin:7px 0 0 10px}
+.chatComposer{display:flex;align-items:center;gap:7px;padding:9px;background:#11212a;border-top:1px solid rgba(136,218,234,.12)}
+.chatInput{flex:1;border:0;outline:none;border-radius:18px;padding:10px 12px;background:#243843;color:#ecfbff;font-size:9px}.chatInput::placeholder{color:#78929c}.chatSend{width:40px;height:40px;border:0;border-radius:50%;background:#2a9cc1;color:#fff;font-size:16px;cursor:pointer;box-shadow:0 0 16px rgba(42,170,210,.2)}
+@media(max-width:620px){.inventoryGrid{grid-template-columns:1fr}.inventoryModal{height:min(720px,calc(100vh - 22px))}.chatModal{height:calc(100vh - 20px);width:100%;max-width:none}}
+
 .reward{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:140;pointer-events:none;background:radial-gradient(circle,rgba(38,168,255,.13),transparent 42%)}.reward.show{display:flex}.rewardBox{position:relative;padding:30px 34px;min-width:min(390px,calc(100% - 30px));text-align:center;border:1px solid var(--line2);background:linear-gradient(145deg,rgba(8,29,49,.98),rgba(2,8,15,.98));box-shadow:0 0 100px rgba(44,186,255,.25);clip-path:polygon(18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%,0 18px);animation:rewardIn .65s cubic-bezier(.2,.8,.2,1)}.rewardSymbol{font-size:42px;color:var(--cyan);text-shadow:0 0 26px rgba(126,231,255,.8)}.rewardBox strong{display:block;font-size:18px;letter-spacing:.16em;margin-top:8px}.rewardBox p{font-size:9px;color:#7595af;margin-top:7px;letter-spacing:.08em}
 .particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:2}.particle{position:absolute;width:2px;height:2px;background:#7fe8ff;box-shadow:0 0 8px #7fe8ff;opacity:.4;animation:float linear infinite}.cornerHUD{position:fixed;inset:0;pointer-events:none;z-index:1}.cornerHUD span{position:absolute;width:72px;height:72px;opacity:.18}.cornerHUD .tl{top:82px;left:8px;border-top:1px solid var(--cyan);border-left:1px solid var(--cyan)}.cornerHUD .tr{top:82px;right:8px;border-top:1px solid var(--cyan);border-right:1px solid var(--cyan)}.cornerHUD .bl{bottom:78px;left:8px;border-bottom:1px solid var(--cyan);border-left:1px solid var(--cyan)}.cornerHUD .br{bottom:78px;right:8px;border-bottom:1px solid var(--cyan);border-right:1px solid var(--cyan)}
 .flash{animation:flash .5s ease}@keyframes flash{0%{box-shadow:0 0 0 0 rgba(90,213,255,.45)}100%{box-shadow:0 0 0 18px rgba(90,213,255,0)}}
@@ -548,6 +583,7 @@ body::after{opacity:.035}
   <div class="cloudStatus" id="cloudStatus" title="Bulut kayıt durumu"><span class="cloudDot"></span><div><small>BULUT</small><b id="cloudStatusText">BAĞLANIYOR</b></div></div><div class="topActions">
     <button class="icon" id="resetBtn" title="Sistemi sıfırla">↻</button>
     <button class="icon audioControl" id="musicToggle" title="Sistem müziğini aç / kapat" aria-label="Sistem müziğini aç / kapat"><span class="musicGlyph">♪</span><span class="musicBars"><i></i><i></i><i></i><i></i></span></button>
+    <button class="icon bagBtn" id="bagBtn" title="Çanta"><span>🎒</span><span class="bagCount" id="bagCount">0</span></button>
     <button class="icon" id="profileBtn" title="Profil"><span id="topAvatarFallback">◉</span><img id="topAvatarImg" alt="Profil" style="display:none"></button>
   </div>
 </header>
@@ -661,7 +697,7 @@ body::after{opacity:.035}
       <div class="ledgerLine"><span>Durum</span><b>LIMITLI</b></div>
     </div>
   </div>
-  <div class="section card wallet"><div><div class="label">MEVCUT BAKİYE</div><div class="walletAmt"><span id="shopCoins">0</span> <small style="font-size:10px;color:var(--muted)">JETON</small></div></div><div style="font-size:9px;color:var(--muted);line-height:1.6;max-width:350px">Görevlerden kazanılan jetonları burada takas edebilirsin. Ürünleri önce inceleyebilir, ardından satın alma işlemini onaylayabilirsin.</div></div>
+  <div class="section card wallet"><div><div class="label">MEVCUT BAKİYE</div><div class="walletAmt"><span id="shopCoins">0</span> <small style="font-size:10px;color:var(--muted)">JETON</small></div></div><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end"><div style="font-size:9px;color:var(--muted);line-height:1.6;max-width:330px">Görevlerden kazanılan jetonları burada takas edebilirsin. Aldığın ödüller doğrudan çantana gönderilir.</div><button class="btn primary" id="shopBagBtn">🎒 ÇANTAYI AÇ</button></div></div>
   <div class="section shopTools"><input id="shopSearch" class="shopSearch" placeholder="Mağazada ara..." autocomplete="off"><button class="filterBtn active" data-filter="all">TÜMÜ</button><button class="filterBtn" data-filter="dinlenme">DİNLENME</button><button class="filterBtn" data-filter="eğitim">EĞİTİM</button><button class="filterBtn" data-filter="kişisel">KİŞİSEL</button><button class="filterBtn" data-filter="özel">ÖZEL</button></div>
   <div class="redeemPanel" id="redeemPanel">
   <div class="redeemHead"><div><div class="redeemTitle">REDEEM CODE // ÖDÜL ANAHTARI</div><div class="redeemSub">Sistemin verdiği promosyon kodunu gir. Geçerli kodlar hesabına tek seferlik jeton ekler.</div></div><span class="rarity legendary">KOD SİSTEMİ</span></div>
@@ -730,6 +766,36 @@ body::after{opacity:.035}
   </div>
 </div>
 <div class="reward" id="reward"><div class="rewardBox"><div class="rewardSymbol">✦</div><strong id="rewardTitle">SİSTEM BİLDİRİMİ</strong><p id="rewardText">İşlem tamamlandı.</p></div></div>
+
+
+<div class="modalWrap" id="inventoryModal">
+  <div class="modal inventoryModal">
+    <div class="modalHead"><h3>ÇANTA // KAZANILAN ÖDÜLLER</h3><button class="close" id="inventoryClose">×</button></div>
+    <div class="modalBody">
+      <div class="inventoryWrap">
+        <div class="inventoryHeadCard"><div><div class="label">OYUNCU ENVANTERİ</div><div style="font-size:12px;font-weight:900;margin-top:5px">Kazandığın ödüller burada tutulur.</div><div style="font-size:8px;color:var(--muted);margin-top:4px">Ödülü kullanmak için kartın altındaki işlem düğmesini kullan.</div></div><div class="inventoryBalance"><span>MEVCUT JETON</span><strong id="inventoryCoinValue">0 J</strong></div></div>
+        <div id="inventoryGrid" class="inventoryGrid"></div>
+      </div>
+    </div>
+    <div class="modalActions"><button class="btn ghost" id="inventoryCloseBottom">KAPAT</button></div>
+  </div>
+</div>
+
+<div class="chatLoading" id="chatLoading" aria-hidden="true">
+  <div class="chatLoadingBox"><div class="chatSpinner"></div><div class="chatLoadingTitle">MR.KADİR // BAĞLANTI KURULUYOR</div><div class="chatLoadingText">Özel ders kanalı hazırlanıyor... sistem mesajlaşma arayüzü yükleniyor.</div></div>
+</div>
+
+<div class="modalWrap" id="kadirChatModal">
+  <div class="modal chatModal">
+    <div class="chatHeader"><div class="chatHeaderAvatar">K</div><div class="chatHeadText"><b>MR.KADİR</b><span>özel ders kanalı</span></div><button class="chatClose" id="kadirChatClose">×</button></div>
+    <div class="chatBody" id="kadirChatBody">
+      <div class="chatDate">BUGÜN</div>
+      <div class="chatBubble"><b>MR.KADİR</b>Merhaba. Özel ders hakkın için buradan iletişim kurabilirsin.<span class="chatTime">Şimdi</span></div>
+      <div class="chatBubble" style="margin-top:9px">Ders konusu ve ayrıntılar için bağlantı kurulduğunda görüşebiliriz.<span class="chatTime">Şimdi</span></div>
+    </div>
+    <div class="chatComposer"><input id="kadirChatInput" class="chatInput" placeholder="Mesaj yaz" autocomplete="off"><button class="chatSend" id="kadirChatSend" aria-label="Gönder">➤</button></div>
+  </div>
+</div>
 
 <div class="modalWrap" id="shopDetailModal"><div class="modal shopDetail"><div class="modalHead"><h3>ÜRÜN AYRINTILARI // MARKET</h3><button class="close" id="shopDetailClose">×</button></div><div class="modalBody" id="shopDetailBody"></div><div class="modalActions"><button class="btn ghost" id="shopDetailCancel">KAPAT</button><button class="btn primary" id="shopDetailBuy">JETONLA TAKAS ET</button></div></div></div>
 
@@ -840,10 +906,54 @@ function redeemCode(){
 }
 
 
+
+function inventoryCount(){return Object.values(state.purchased||{}).reduce((a,b)=>a+(Number(b)||0),0)}
+function renderInventory(){
+  const root=document.getElementById('inventoryGrid');
+  const count=inventoryCount();
+  const bag=document.getElementById('bagCount'); if(bag) bag.textContent=count;
+  const coin=document.getElementById('inventoryCoinValue'); if(coin) coin.textContent=`${state.coins} J`;
+  if(!root)return;
+  const owned=SHOP.filter(x=>(state.purchased[x.id]||0)>0);
+  if(!owned.length){root.innerHTML='<div class="inventoryEmpty" style="grid-column:1/-1">ÇANTA ŞU AN BOŞ.<br>Mağazadan bir ödül takas ettiğinde burada görünecek.</div>';return}
+  root.innerHTML=owned.map(x=>{
+    const qty=Number(state.purchased[x.id]||0);
+    const lesson=x.id==='lesson';
+    return `<div class="inventoryItem ${lesson?'lessonItem':''}">
+      <div class="inventoryTop"><div class="inventoryIcon">${x.icon}</div><div><div class="inventoryName">${escapeHtml(x.name)}</div><div class="inventoryMeta">${escapeHtml(x.rarity)} • ${escapeHtml(x.category.toUpperCase())}</div></div></div>
+      <div class="inventoryDesc">${lesson?'Özel ders hakkını kullanarak MR.KADİR iletişim kanalını açabilirsin.':'Bu ödül hakkı çantanda hazır. İstediğin uygun zamanda kullanabilirsin.'}</div>
+      <div class="inventoryFoot"><div class="inventoryQty">SAHİP • <b>${qty} ADET</b></div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">${lesson?`<button class="btn primary" style="padding:9px 11px" onclick="openKadirChat()">KULLAN // MESAJLA</button>`:`<button class="btn ghost" style="padding:9px 11px" onclick="useInventoryItem('${x.id}')">ÖDÜLÜ KULLAN</button>`}</div></div>
+    </div>`;
+  }).join('');
+}
+function openInventory(){renderInventory();document.getElementById('inventoryModal').classList.add('open');}
+function closeInventory(){document.getElementById('inventoryModal').classList.remove('open');}
+function useInventoryItem(id){
+  const qty=Number(state.purchased[id]||0); if(qty<=0)return;
+  const x=SHOP.find(i=>i.id===id); if(!x)return;
+  state.purchased[id]=qty-1;
+  if(state.purchased[id]<=0) delete state.purchased[id];
+  addActivity(`Çantadan ödül kullanıldı: ${x.name}`,'done');
+  save();render();renderInventory();
+  showReward('ÖDÜL KULLANILDI',`${x.name} hakkı kullanıldı.`);
+}
+function openKadirChat(){
+  const loading=document.getElementById('chatLoading'), modal=document.getElementById('kadirChatModal');
+  if(!loading||!modal)return;
+  loading.classList.add('active');loading.setAttribute('aria-hidden','false');
+  setTimeout(()=>{loading.classList.remove('active');loading.setAttribute('aria-hidden','true');modal.classList.add('open');const input=document.getElementById('kadirChatInput');input?.focus();},900);
+}
+function closeKadirChat(){document.getElementById('kadirChatModal').classList.remove('open');}
+function cloudUnavailableMessage(){
+  closeKadirChat();
+  showToast('BULUT BAĞLANILMADI • BULUT BAĞLANINCA DETAYLI BİR DERS İÇİN BEKLİYOR OLACAĞIZ.');
+  setTimeout(()=>showReward('MR.KADİR // BAĞLANTI BEKLEMEDE','Bulut bağlanınca detaylı bir ders için bekliyor olacağız.'),450);
+}
+
 function renderWeek(){const box=document.getElementById('weekDays'),names=['PZT','SAL','ÇAR','PER','CUM','CMT','PAZ'],now=new Date(),day=now.getDay()||7,monday=new Date(now);monday.setDate(now.getDate()-day+1);let h='';for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const k=iso(d),today=k===todayKey(),done=(k===state.lastCompletedDate&&k!==today)||(today&&state.todayDone.length===state.tasks.length);h+=`<div class="day ${done?'done':''} ${today?'today':''}"><small>${names[i]}</small><b>${done?'✓':d.getDate()}</b></div>`}box.innerHTML=h}
 function renderStats(){document.getElementById('statsStreak').textContent=state.currentStreak;document.getElementById('longestStreak').textContent=state.longestStreak;document.getElementById('totalXp').textContent=state.totalXp;const completion=Math.min(100,Math.round(state.totalCompleted/(Math.max(1,state.totalCompleted+state.tasks.length*2))*100));document.getElementById('completionPct').textContent=completion+'%';document.getElementById('completionBar').style.width=completion+'%';const need=levelNeeded(state.level),lp=Math.round(state.xp/need*100);document.getElementById('levelPct').textContent=lp+'%';document.getElementById('levelBar').style.width=lp+'%';const sp=Math.min(100,Math.round(state.currentStreak/7*100));document.getElementById('streakPct').textContent=sp+'%';document.getElementById('streakBar').style.width=sp+'%';document.getElementById('statusRankLabel').textContent=rankFor(state.level);document.getElementById('statusRankBig').textContent=rankFor(state.level);document.getElementById('statusNextRank').textContent=nextRankFor(state.level);document.getElementById('statusLevelPct').textContent=lp+'%';document.getElementById('statusLevelBar').style.width=lp+'%';document.getElementById('achievements').innerHTML=ACHIEVEMENTS.map(a=>{const ok=a.check(state);return `<div class="card achievement ${ok?'':'locked'}"><div class="achRow"><div class="achIcon">${a.icon}</div><div><div class="achName">${a.name}</div><div class="achDesc">${a.desc}</div></div><div class="achState">${ok?'AÇILDI':'KİLİTLİ'}</div></div></div>`}).join('');const r=rankFor(state.level);document.querySelectorAll('.rankNode').forEach(n=>n.classList.toggle('active',n.dataset.rank===r.charAt(0)));const ox=document.getElementById('statusOrbitXp');if(ox)ox.textContent=state.totalXp;}
 function renderProfile(){document.getElementById('profileName').textContent=state.name||'Avcı';document.getElementById('profileRank').textContent=`${rankFor(state.level)} • SEVİYE ${state.level}`;document.getElementById('nameInput').value=state.name||'';document.getElementById('goalInput').value=state.goal;document.getElementById('penaltyToggle').checked=!!state.penalty;const has=!!state.avatarData;document.getElementById('avatarFallback').style.display=has?'none':'grid';document.getElementById('avatarImg').style.display=has?'block':'none';document.getElementById('avatarImg').src=has?state.avatarData:'';document.getElementById('topAvatarFallback').style.display=has?'none':'inline';document.getElementById('topAvatarImg').style.display=has?'block':'none';document.getElementById('topAvatarImg').src=has?state.avatarData:'';const g=state.google&&state.google.loggedIn;document.getElementById('googleStatusText').textContent=g?`${state.google.email} hesabı bağlı.`:'Google hesabını bağlamak için aşağıdaki düğmeyi kullan.';document.getElementById('googleMiniStatus').textContent=g?`Google hesabı bağlı • ${state.google.email}`:'Yerel profil aktif';document.getElementById('googleButtonWrap').style.display=g?'none':'flex';document.getElementById('loginAccount').classList.toggle('show',!!g);if(g){document.getElementById('loginAccountName').textContent=state.google.name||state.name;document.getElementById('loginAccountEmail').textContent=state.google.email||'';document.getElementById('loginAccountImg').src=state.google.picture||''}const need=levelNeeded(state.level),p=Math.round(state.xp/need*100);document.getElementById('profileMiniRank').textContent=rankFor(state.level);document.getElementById('profileMiniLevel').textContent=state.level;document.getElementById('profileMiniXp').textContent=state.totalXp;document.getElementById('profileMiniCoins').textContent=state.coins;document.getElementById('profileRankPct').textContent=p+'%';document.getElementById('profileRankBar').style.width=p+'%';const topName=document.getElementById('topIdentityName');const topRank=document.getElementById('topIdentityRank');const topImg=document.getElementById('topIdentityImg');const topFallback=document.getElementById('topIdentityFallback');if(topName)topName.textContent=state.name||'Avcı';if(topRank)topRank.textContent=`${rankFor(state.level)} • SV. ${state.level}`;if(topImg&&topFallback){const topSrc=state.avatarData||state.google?.picture||'';topImg.style.display=topSrc?'block':'none';topFallback.style.display=topSrc?'none':'grid';topImg.src=topSrc||'';}const sn=document.getElementById('showcaseName');if(sn)sn.textContent=state.name||'Avcı';const ss=document.getElementById('showcaseSummary');if(ss)ss.textContent=`${rankFor(state.level)} rütbesindeki oyuncu profili. ${state.totalXp} toplam XP ve ${state.currentStreak} günlük mevcut seri sistem tarafından izleniyor.`;const serial=document.getElementById('showcaseSerial');if(serial)serial.textContent=`SV-${String(state.level).padStart(2,'0')} / ${state.google?.loggedIn?'GOOGLE':'LOCAL'}`;const si=document.getElementById('showcaseAvatarImg'),sf=document.getElementById('showcaseAvatarFallback');if(si&&sf){const src=state.avatarData||state.google?.picture||'';si.style.display=src?'block':'none';sf.style.display=src?'none':'grid';si.src=src||'';}}
-function render(){normalizeDay(state);const need=levelNeeded(state.level),pct=Math.min(100,state.xp/need*100);document.getElementById('levelValue').textContent=state.level;document.getElementById('xpValue').textContent=state.xp;document.getElementById('xpNeeded').textContent=need;document.getElementById('xpBar').style.width=pct+'%';document.getElementById('rankLabel').textContent=rankFor(state.level);document.getElementById('nextRank').textContent=nextRankFor(state.level);document.getElementById('targetRead').textContent=`${state.todayXp} / ${state.goal} XP`;document.getElementById('todayXp').textContent=state.todayXp;document.getElementById('streakValue').textContent=state.currentStreak;document.getElementById('homeStreak').textContent=state.currentStreak;document.getElementById('doneCount').textContent=`${state.todayDone.length}/${state.tasks.length}`;document.getElementById('coinValue').textContent=state.coins;document.getElementById('shopCoins').textContent=state.coins;document.getElementById('taskProgress').textContent=state.todayDone.length;document.getElementById('taskTotal').textContent=state.tasks.length;document.getElementById('questProgressBar').style.width=(state.todayDone.length/Math.max(1,state.tasks.length)*100)+'%';document.getElementById('taskXpPotential').textContent=state.tasks.reduce((a,t)=>a+t.xp,0)+50;document.getElementById('taskXpEarned').textContent=state.todayXp;document.getElementById('taskRemaining').textContent=Math.max(0,state.tasks.length-state.todayDone.length);document.getElementById('greeting').textContent=`${state.name||'Avcı'}, sistem hazır. Bugünün görevlerini tamamla ve ${state.goal} XP hedefine ulaş.`;const hx=document.getElementById('homePulseXp');if(hx)hx.textContent=state.todayXp;const hs=document.getElementById('homePulseStreak');if(hs)hs.textContent=state.currentStreak+' GÜN';const ht=document.getElementById('homeTimelineStreak');if(ht)ht.textContent=state.currentStreak+' GÜN';const hc=document.getElementById('homeTimelineCoins');if(hc)hc.textContent=state.coins+' J';const hd=document.getElementById('homeTimelineDone');if(hd)hd.textContent=`${state.todayDone.length} / ${state.tasks.length}`;renderTasks('homeTasks');renderTasks('taskPageList');renderWeek();renderStats();renderProfile();renderShop();renderMission();renderActivity()}
+function render(){normalizeDay(state);const need=levelNeeded(state.level),pct=Math.min(100,state.xp/need*100);document.getElementById('levelValue').textContent=state.level;document.getElementById('xpValue').textContent=state.xp;document.getElementById('xpNeeded').textContent=need;document.getElementById('xpBar').style.width=pct+'%';document.getElementById('rankLabel').textContent=rankFor(state.level);document.getElementById('nextRank').textContent=nextRankFor(state.level);document.getElementById('targetRead').textContent=`${state.todayXp} / ${state.goal} XP`;document.getElementById('todayXp').textContent=state.todayXp;document.getElementById('streakValue').textContent=state.currentStreak;document.getElementById('homeStreak').textContent=state.currentStreak;document.getElementById('doneCount').textContent=`${state.todayDone.length}/${state.tasks.length}`;document.getElementById('coinValue').textContent=state.coins;document.getElementById('shopCoins').textContent=state.coins;document.getElementById('taskProgress').textContent=state.todayDone.length;document.getElementById('taskTotal').textContent=state.tasks.length;document.getElementById('questProgressBar').style.width=(state.todayDone.length/Math.max(1,state.tasks.length)*100)+'%';document.getElementById('taskXpPotential').textContent=state.tasks.reduce((a,t)=>a+t.xp,0)+50;document.getElementById('taskXpEarned').textContent=state.todayXp;document.getElementById('taskRemaining').textContent=Math.max(0,state.tasks.length-state.todayDone.length);document.getElementById('greeting').textContent=`${state.name||'Avcı'}, sistem hazır. Bugünün görevlerini tamamla ve ${state.goal} XP hedefine ulaş.`;const hx=document.getElementById('homePulseXp');if(hx)hx.textContent=state.todayXp;const hs=document.getElementById('homePulseStreak');if(hs)hs.textContent=state.currentStreak+' GÜN';const ht=document.getElementById('homeTimelineStreak');if(ht)ht.textContent=state.currentStreak+' GÜN';const hc=document.getElementById('homeTimelineCoins');if(hc)hc.textContent=state.coins+' J';const hd=document.getElementById('homeTimelineDone');if(hd)hd.textContent=`${state.todayDone.length} / ${state.tasks.length}`;renderTasks('homeTasks');renderTasks('taskPageList');renderWeek();renderStats();renderProfile();renderShop();renderMission();renderActivity();renderInventory()}
 function gotoPage(n){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+n).classList.add('active');document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.page===n));window.scrollTo({top:0,behavior:'smooth'})}
 function showToast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(showToast.t);showToast.t=setTimeout(()=>e.classList.remove('show'),2200)}
 function showReward(t,p){const e=document.getElementById('reward');document.getElementById('rewardTitle').textContent=t;document.getElementById('rewardText').textContent=p;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1900)}
@@ -1048,7 +1158,7 @@ function confirmIdentity(){
   showReward('YENİ YARIŞMACI KAYDEDİLDİ',`${state.name}, sistem seni tanımladı.`);
 }
 
-document.querySelectorAll('.navBtn').forEach(b=>b.addEventListener('click',()=>gotoPage(b.dataset.page)));document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>gotoPage(b.dataset.go)));document.getElementById('profileBtn').addEventListener('click',()=>gotoPage('profile'));document.getElementById('topIdentity').addEventListener('click',()=>gotoPage('profile'));document.getElementById('quickTasks').addEventListener('click',()=>gotoPage('tasks'));document.getElementById('quickShop').addEventListener('click',()=>gotoPage('shop'));document.getElementById('quickProfile').addEventListener('click',()=>gotoPage('profile'));
+document.querySelectorAll('.navBtn').forEach(b=>b.addEventListener('click',()=>gotoPage(b.dataset.page)));document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>gotoPage(b.dataset.go)));document.getElementById('bagBtn').addEventListener('click',openInventory);document.getElementById('shopBagBtn').addEventListener('click',openInventory);document.getElementById('inventoryClose').addEventListener('click',closeInventory);document.getElementById('inventoryCloseBottom').addEventListener('click',closeInventory);document.getElementById('kadirChatClose').addEventListener('click',closeKadirChat);document.getElementById('kadirChatInput').addEventListener('focus',cloudUnavailableMessage);document.getElementById('kadirChatInput').addEventListener('input',cloudUnavailableMessage);document.getElementById('kadirChatSend').addEventListener('click',cloudUnavailableMessage);document.getElementById('profileBtn').addEventListener('click',()=>gotoPage('profile'));document.getElementById('topIdentity').addEventListener('click',()=>gotoPage('profile'));document.getElementById('quickTasks').addEventListener('click',()=>gotoPage('tasks'));document.getElementById('quickShop').addEventListener('click',()=>gotoPage('shop'));document.getElementById('quickProfile').addEventListener('click',()=>gotoPage('profile'));
 document.getElementById('saveProfile').addEventListener('click',()=>{state.name=document.getElementById('nameInput').value.trim()||'Avcı';state.goal=Math.max(50,Number(document.getElementById('goalInput').value)||200);state.penalty=document.getElementById('penaltyToggle').checked;addActivity('Oyuncu profili güncellendi','info');save();render();showToast('PROFİL KAYDEDİLDİ')});document.getElementById('penaltyToggle').addEventListener('change',()=>{state.penalty=document.getElementById('penaltyToggle').checked;save()});
 document.getElementById('avatarPick').addEventListener('click',()=>document.getElementById('avatarInput').click());document.getElementById('avatarInput').addEventListener('change',e=>setAvatar(e.target.files[0]));document.getElementById('removeAvatar').addEventListener('click',()=>{state.avatarData='';save();render();showToast('PROFİL FOTOĞRAFI KALDIRILDI')});
 document.getElementById('googleLogout').addEventListener('click',logoutGoogle);

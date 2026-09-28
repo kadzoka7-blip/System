@@ -91,6 +91,36 @@ button,a{cursor:pointer!important}input,textarea,select{cursor:text}
 /* pencereler */
 .modalWrap{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:120;padding:18px;background:rgba(1,5,10,.72);backdrop-filter:blur(9px)}.modalWrap.open{display:flex}.modal{width:min(470px,100%);padding:0;border:1px solid var(--line2);background:linear-gradient(145deg,#071728,#030a12);box-shadow:0 30px 100px rgba(0,0,0,.65);clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px)}.modalHead{display:flex;justify-content:space-between;align-items:center;padding:15px 17px;border-bottom:1px solid rgba(112,208,255,.1)}.modalHead h3{font-size:12px;letter-spacing:.16em}.close{width:30px;height:30px;border:1px solid var(--line);background:transparent;cursor:pointer}.modalBody{padding:17px}.modalActions{display:flex;justify-content:flex-end;gap:8px;padding:0 17px 17px}
 .toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:150;padding:11px 15px;border:1px solid var(--line2);background:rgba(3,12,22,.94);color:var(--cyan);font-size:9px;letter-spacing:.1em;box-shadow:0 0 30px rgba(44,164,255,.14);transition:.28s}.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* === MEHLİKA // ÖZEL REDEEM SEKVANSI === */
+.mehlikaSequence{position:fixed;inset:0;z-index:6200;display:none;align-items:center;justify-content:center;overflow:hidden;background:#020713;isolation:isolate}
+.mehlikaSequence.active{display:flex}
+.mehlikaSequence::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(51,159,255,.17),transparent 24%),radial-gradient(circle at 20% 75%,rgba(56,88,255,.12),transparent 28%),radial-gradient(circle at 80% 25%,rgba(0,220,255,.09),transparent 28%);animation:mehlikaSky .7s linear infinite alternate}
+.mehlikaSequence::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(124,224,255,.035) 4px 5px);mix-blend-mode:screen;pointer-events:none;opacity:.7}
+.portalStage{position:relative;width:min(760px,100%);height:min(720px,100%);display:grid;place-items:center;z-index:2}
+.portal{position:relative;width:clamp(220px,42vw,430px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at center,rgba(181,247,255,.95) 0 3%,rgba(55,188,255,.75) 4% 9%,rgba(15,105,255,.24) 10% 28%,rgba(11,35,100,.08) 42%,transparent 60%);box-shadow:0 0 32px rgba(63,201,255,.9),0 0 90px rgba(28,126,255,.55),0 0 180px rgba(33,77,255,.28),inset 0 0 50px rgba(132,239,255,.38);animation:portalPulse .48s ease-in-out infinite alternate}
+.portal::before,.portal::after{content:"";position:absolute;inset:-8%;border-radius:50%;border:2px solid rgba(129,232,255,.62);box-shadow:0 0 25px rgba(77,195,255,.55),inset 0 0 25px rgba(77,195,255,.22);animation:portalSpin .9s linear infinite}
+.portal::after{inset:13%;border-style:dashed;border-width:1px;opacity:.8;animation:portalSpin 1.25s linear infinite reverse}
+.portalCore{position:absolute;inset:28%;border-radius:50%;background:radial-gradient(circle,#f3ffff 0 5%,#8beeff 7% 13%,rgba(38,162,255,.35) 20%,transparent 67%);filter:blur(.2px);box-shadow:0 0 50px rgba(133,239,255,.75);animation:portalCore .55s ease-in-out infinite alternate}
+.portalLabel{position:absolute;bottom:13%;left:50%;transform:translateX(-50%);padding:8px 14px;border:1px solid rgba(139,231,255,.3);background:rgba(2,13,28,.68);color:#b7f2ff;font:800 9px/1 Inter,ui-sans-serif;letter-spacing:.26em;white-space:nowrap;box-shadow:0 0 22px rgba(44,175,255,.14);animation:glitchLabel .18s steps(2,end) infinite}
+.portalChaos{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.chaosPiece{position:absolute;width:2px;height:20px;background:linear-gradient(180deg,transparent,#a7f2ff,transparent);box-shadow:0 0 12px rgba(132,235,255,.8);opacity:.7;animation:chaosFly .62s cubic-bezier(.12,.78,.23,1) forwards}
+.mehlikaFlash{position:absolute;inset:0;background:#dffcff;opacity:0;mix-blend-mode:screen;animation:mehlikaFlash .34s ease-out}
+.fireworksCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.mehlikaNotice{position:absolute;z-index:5;width:min(620px,calc(100% - 28px));padding:28px 26px 24px;text-align:center;border:1px solid rgba(126,227,255,.52);background:linear-gradient(155deg,rgba(8,27,47,.97),rgba(2,7,16,.97));box-shadow:0 0 110px rgba(26,159,255,.28),0 30px 100px rgba(0,0,0,.7);clip-path:polygon(24px 0,100% 0,100% calc(100% - 24px),calc(100% - 24px) 100%,0 100%,0 24px);opacity:0;transform:scale(.78) translateY(18px);pointer-events:none}
+.mehlikaNotice.show{animation:mehlikaNoticeIn .7s cubic-bezier(.13,.86,.18,1) forwards;pointer-events:auto}
+.mehlikaKicker{font-size:8px;letter-spacing:.32em;color:#75dfff}.mehlikaTitle{margin-top:9px;font-size:clamp(20px,4vw,32px);letter-spacing:.08em;text-shadow:0 0 25px rgba(87,219,255,.42)}
+.mehlikaTitle span{color:#aaf4ff}.mehlikaMessage{margin:11px auto 0;max-width:530px;font-size:10px;line-height:1.8;color:#8aa7bb}.mehlikaMessage b{color:#ecfbff}.mehlikaNotice ul{list-style:none;margin:16px auto 0;display:grid;gap:7px;max-width:510px;text-align:left}.mehlikaNotice li{padding:9px 11px;border:1px solid rgba(104,208,255,.1);background:rgba(20,67,104,.1);font-size:8px;line-height:1.6;color:#7e9bb1}.mehlikaNotice li::before{content:"◆";color:#72e3ff;margin-right:8px}.mehlikaNotice .btn{margin-top:18px;min-width:180px}
+@keyframes mehlikaSky{to{filter:brightness(1.18) saturate(1.25)}}
+@keyframes portalPulse{to{transform:scale(1.055) rotate(.6deg);filter:brightness(1.15)}}
+@keyframes portalSpin{to{transform:rotate(360deg)}}
+@keyframes portalCore{to{transform:scale(1.18);filter:brightness(1.3)}}
+@keyframes glitchLabel{50%{transform:translateX(calc(-50% + 3px));filter:hue-rotate(15deg)}}
+@keyframes chaosFly{0%{transform:translate(var(--sx),var(--sy)) rotate(var(--sr));opacity:.9}100%{transform:translate(var(--ex),var(--ey)) rotate(calc(var(--sr) + 280deg));opacity:0}}
+@keyframes mehlikaFlash{0%{opacity:0}12%{opacity:.92}100%{opacity:0}}
+@keyframes mehlikaNoticeIn{0%{opacity:0;transform:scale(.78) translateY(18px)}52%{opacity:1;transform:scale(1.03) translateY(0)}100%{opacity:1;transform:scale(1)}}
+@media(max-width:620px){.portal{width:230px}.portalLabel{bottom:8%;font-size:7px}.mehlikaNotice{padding:23px 18px 20px}.mehlikaMessage{font-size:9px}}
+
 .reward{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:140;pointer-events:none;background:radial-gradient(circle,rgba(38,168,255,.13),transparent 42%)}.reward.show{display:flex}.rewardBox{position:relative;padding:30px 34px;min-width:min(390px,calc(100% - 30px));text-align:center;border:1px solid var(--line2);background:linear-gradient(145deg,rgba(8,29,49,.98),rgba(2,8,15,.98));box-shadow:0 0 100px rgba(44,186,255,.25);clip-path:polygon(18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%,0 18px);animation:rewardIn .65s cubic-bezier(.2,.8,.2,1)}.rewardSymbol{font-size:42px;color:var(--cyan);text-shadow:0 0 26px rgba(126,231,255,.8)}.rewardBox strong{display:block;font-size:18px;letter-spacing:.16em;margin-top:8px}.rewardBox p{font-size:9px;color:#7595af;margin-top:7px;letter-spacing:.08em}
 .particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:2}.particle{position:absolute;width:2px;height:2px;background:#7fe8ff;box-shadow:0 0 8px #7fe8ff;opacity:.4;animation:float linear infinite}.cornerHUD{position:fixed;inset:0;pointer-events:none;z-index:1}.cornerHUD span{position:absolute;width:72px;height:72px;opacity:.18}.cornerHUD .tl{top:82px;left:8px;border-top:1px solid var(--cyan);border-left:1px solid var(--cyan)}.cornerHUD .tr{top:82px;right:8px;border-top:1px solid var(--cyan);border-right:1px solid var(--cyan)}.cornerHUD .bl{bottom:78px;left:8px;border-bottom:1px solid var(--cyan);border-left:1px solid var(--cyan)}.cornerHUD .br{bottom:78px;right:8px;border-bottom:1px solid var(--cyan);border-right:1px solid var(--cyan)}
 .flash{animation:flash .5s ease}@keyframes flash{0%{box-shadow:0 0 0 0 rgba(90,213,255,.45)}100%{box-shadow:0 0 0 18px rgba(90,213,255,0)}}
@@ -679,6 +709,26 @@ body::after{opacity:.035}
 <nav class="bottom"><div class="nav"><button class="navBtn active" data-page="home"><span class="navIcon">⌂</span><small>ANA SAYFA</small><i class="navDot"></i></button><button class="navBtn" data-page="tasks"><span class="navIcon">✦</span><small>GÖREVLER</small><i class="navDot"></i></button><button class="navBtn" data-page="streak"><span class="navIcon">◌</span><small>DURUM</small><i class="navDot"></i></button><button class="navBtn" data-page="shop"><span class="navIcon">◇</span><small>MAĞAZA</small><i class="navDot"></i></button><button class="navBtn" data-page="profile"><span class="navIcon">◉</span><small>PROFİL</small><i class="navDot"></i></button></div></nav>
 </div>
 <div class="toast" id="toast"></div>
+
+<div class="mehlikaSequence" id="mehlikaSequence" aria-hidden="true">
+  <div class="portalStage">
+    <div class="portalChaos" id="portalChaos"></div>
+    <div class="portal" id="mehlikaPortal"><div class="portalCore"></div><div class="portalLabel">SİSTEM // ÖDÜL GEÇİDİ AÇILIYOR</div></div>
+    <canvas class="fireworksCanvas" id="fireworksCanvas"></canvas>
+    <div class="mehlikaFlash" id="mehlikaFlash"></div>
+  </div>
+  <div class="mehlikaNotice" id="mehlikaNotice" role="dialog" aria-modal="true" aria-labelledby="mehlikaNoticeTitle">
+    <div class="mehlikaKicker">[ ÖZEL DEMO PROTOKOLÜ // MEHLİKA ]</div>
+    <div class="mehlikaTitle" id="mehlikaNoticeTitle">TEBRİKLER, <span>ÖZEL HAK KAZANDINIZ</span></div>
+    <div class="mehlikaMessage"><b>Demo sürümü için özel hak kazandınız.</b> 2.000 puan hesabınıza tanımlandı. İstediğiniz gibi harcayabilirsiniz.</div>
+    <ul>
+      <li>Bilgilendirme: Ödüller gerçek hayat için geçerlidir.</li>
+      <li>Ödül teslim tarihleri değişiklik gösterebilir.</li>
+      <li>Teslim ve kullanım detayları <b>benim keyfime göre</b> değişebilir.</li>
+    </ul>
+    <button class="btn primary" id="mehlikaNoticeClose">ANLADIM</button>
+  </div>
+</div>
 <div class="reward" id="reward"><div class="rewardBox"><div class="rewardSymbol">✦</div><strong id="rewardTitle">SİSTEM BİLDİRİMİ</strong><p id="rewardText">İşlem tamamlandı.</p></div></div>
 
 <div class="modalWrap" id="shopDetailModal"><div class="modal shopDetail"><div class="modalHead"><h3>ÜRÜN AYRINTILARI // MARKET</h3><button class="close" id="shopDetailClose">×</button></div><div class="modalBody" id="shopDetailBody"></div><div class="modalActions"><button class="btn ghost" id="shopDetailCancel">KAPAT</button><button class="btn primary" id="shopDetailBuy">JETONLA TAKAS ET</button></div></div></div>
@@ -760,9 +810,34 @@ function renderPurchaseHistory(){const root=document.getElementById('purchaseLis
 function openShopDetail(id){const x=SHOP.find(i=>i.id===id);if(!x)return;selectedShopId=id;const owned=state.purchased[id]||0;const premium=x.premium?'premium':'';document.getElementById('shopDetailBody').innerHTML=`<div class="detailGrid"><div class="detailIcon ${premium}">${x.icon}</div><div><div class="label">${escapeHtml(x.rarity)} • ${escapeHtml(x.category.toUpperCase())}</div><div class="detailTitle" style="margin-top:6px">${escapeHtml(x.name)}</div><div class="detailPrice">${x.price} JETON</div><p class="detailCopy">${escapeHtml(x.desc)}</p></div></div><div class="detailFacts"><div class="detailFact"><small>SÜRE</small><b>${escapeHtml(x.duration)}</b></div><div class="detailFact"><small>DURUM</small><b>${escapeHtml(x.stock)}</b></div><div class="detailFact"><small>SAHİP</small><b>${owned} ADET</b></div></div><div class="detailFeatures"><h4>ÜRÜN KAPSAMI</h4><ul>${x.features.map(f=>`<li>${escapeHtml(f)}</li>`).join('')}</ul></div>`;document.getElementById('shopDetailBuy').textContent=state.coins>=x.price?'JETONLA TAKAS ET':'YETERSİZ JETON';document.getElementById('shopDetailBuy').disabled=state.coins<x.price;document.getElementById('shopDetailModal').classList.add('open')}
 function closeShopDetail(){document.getElementById('shopDetailModal').classList.remove('open');selectedShopId=''}
 function buyItem(id){const x=SHOP.find(i=>i.id===id);if(!x)return;if(state.coins<x.price){showToast('SİSTEM REDDETTİ • YETERLİ JETON YOK');openShopDetail(id);return}state.coins-=x.price;state.purchased[id]=(state.purchased[id]||0)+1;state.spentCoins=(state.spentCoins||0)+x.price;if(!Array.isArray(state.purchases))state.purchases=[];state.purchases.push({id:x.id,name:x.name,price:x.price,date:new Date().toLocaleString('tr-TR',{dateStyle:'short',timeStyle:'short'})});save();render();closeShopDetail();showReward(x.premium?'ÖZEL ÖDÜL AÇILDI':'ÖDÜL AÇILDI',`${x.name} takas edildi.`)}
-const REDEEM_CODES={GULSE100:{coins:100,message:'100 jeton hesabına tanımlandı.'},KADIR250:{coins:250,message:'250 jeton hesabına tanımlandı.'},SYSTEM500:{coins:500,message:'500 jeton hesabına tanımlandı.'}};
+const REDEEM_CODES={
+  GULSE100:{coins:100,message:'100 jeton hesabına tanımlandı.'},
+  KADIR250:{coins:250,message:'250 jeton hesabına tanımlandı.'},
+  SYSTEM500:{coins:500,message:'500 jeton hesabına tanımlandı.'},
+  MEHLIKA:{coins:2000,message:'Özel demo hakkı açıldı.',special:true}
+};
 function setRedeemStatus(text,type){const el=document.getElementById('redeemStatus');if(!el)return;el.textContent=text;el.className='redeemStatus '+(type||'');}
-function redeemCode(){const input=document.getElementById('redeemCodeInput');const raw=(input?.value||'').trim().toUpperCase();if(!raw){setRedeemStatus('SİSTEM: Lütfen bir kod gir.','err');return}const item=REDEEM_CODES[raw];if(!item){setRedeemStatus('SİSTEM: Kod geçersiz veya süresi dolmuş.','err');showToast('REDEEM KODU REDDEDİLDİ');return}if(state.redeemedCodes.includes(raw)){setRedeemStatus('SİSTEM: Bu kod daha önce kullanıldı.','err');showToast('KOD ZATEN KULLANILDI');return}state.coins+=item.coins;state.redeemedCodes.push(raw);addActivity(`Redeem kodu kullanıldı: ${raw}`,'done');save();render();setRedeemStatus(`KOD ONAYLANDI • +${item.coins} JETON • ${item.message}`,'ok');input.value='';showReward('REDEEM KODU AKTİFLEŞTİRİLDİ',`+${item.coins} jeton hesabına eklendi.`)}
+function redeemCode(){
+  const input=document.getElementById('redeemCodeInput');
+  const raw=(input?.value||'').trim().toUpperCase();
+  if(!raw){setRedeemStatus('SİSTEM: Lütfen bir kod gir.','err');return}
+  const item=REDEEM_CODES[raw];
+  if(!item){setRedeemStatus('SİSTEM: Kod geçersiz veya süresi dolmuş.','err');showToast('REDEEM KODU REDDEDİLDİ');return}
+  if(state.redeemedCodes.includes(raw)){setRedeemStatus('SİSTEM: Bu kod daha önce kullanıldı.','err');showToast('KOD ZATEN KULLANILDI');return}
+  state.coins+=item.coins;
+  state.redeemedCodes.push(raw);
+  addActivity(`Redeem kodu kullanıldı: ${raw}`,'done');
+  save();
+  render();
+  input.value='';
+  if(item.special){
+    setRedeemStatus('MEHLİKA KODU ONAYLANDI • +2.000 PUAN • ÖZEL DEMO HAKKI AÇILDI','ok');
+    runMehlikaReward();
+  }else{
+    setRedeemStatus(`KOD ONAYLANDI • +${item.coins} JETON • ${item.message}`,'ok');
+    showReward('REDEEM KODU AKTİFLEŞTİRİLDİ',`+${item.coins} jeton hesabına eklendi.`)
+  }
+}
 
 
 function renderWeek(){const box=document.getElementById('weekDays'),names=['PZT','SAL','ÇAR','PER','CUM','CMT','PAZ'],now=new Date(),day=now.getDay()||7,monday=new Date(now);monday.setDate(now.getDate()-day+1);let h='';for(let i=0;i<7;i++){const d=new Date(monday);d.setDate(monday.getDate()+i);const k=iso(d),today=k===todayKey(),done=(k===state.lastCompletedDate&&k!==today)||(today&&state.todayDone.length===state.tasks.length);h+=`<div class="day ${done?'done':''} ${today?'today':''}"><small>${names[i]}</small><b>${done?'✓':d.getDate()}</b></div>`}box.innerHTML=h}
@@ -772,6 +847,106 @@ function render(){normalizeDay(state);const need=levelNeeded(state.level),pct=Ma
 function gotoPage(n){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+n).classList.add('active');document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.page===n));window.scrollTo({top:0,behavior:'smooth'})}
 function showToast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(showToast.t);showToast.t=setTimeout(()=>e.classList.remove('show'),2200)}
 function showReward(t,p){const e=document.getElementById('reward');document.getElementById('rewardTitle').textContent=t;document.getElementById('rewardText').textContent=p;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1900)}
+
+function runMehlikaReward(){
+  const overlay=document.getElementById('mehlikaSequence');
+  const notice=document.getElementById('mehlikaNotice');
+  const chaos=document.getElementById('portalChaos');
+  const flash=document.getElementById('mehlikaFlash');
+  const canvas=document.getElementById('fireworksCanvas');
+  if(!overlay||!notice||!chaos)return;
+
+  overlay.classList.add('active');
+  overlay.setAttribute('aria-hidden','false');
+  notice.classList.remove('show');
+  flash?.classList.remove('active');
+  if(flash){void flash.offsetWidth;flash.classList.add('active')}
+
+  chaos.innerHTML='';
+  for(let i=0;i<90;i++){
+    const piece=document.createElement('i');
+    piece.className='chaosPiece';
+    const angle=Math.random()*Math.PI*2;
+    const start=20+Math.random()*80;
+    const end=130+Math.random()*380;
+    piece.style.left='50%';piece.style.top='50%';
+    piece.style.setProperty('--sx',(Math.cos(angle)*start)+'px');
+    piece.style.setProperty('--sy',(Math.sin(angle)*start)+'px');
+    piece.style.setProperty('--ex',(Math.cos(angle)*end)+'px');
+    piece.style.setProperty('--ey',(Math.sin(angle)*end)+'px');
+    piece.style.setProperty('--sr',(Math.random()*360)+'deg');
+    piece.style.animationDelay=(Math.random()*.28)+'s';
+    piece.style.height=(8+Math.random()*40)+'px';
+    chaos.appendChild(piece);
+  }
+
+  // Haptik: kod butonuna kullanıcı bastığı için mobil tarayıcılarda çoğunlukla çalışır.
+  if('vibrate' in navigator){
+    try{navigator.vibrate([180,80,220,70,180,60,280,80,180,60,120]);}catch{}
+  }
+
+  startFireworks(canvas, 1800);
+
+  clearTimeout(runMehlikaReward.noticeTimer);
+  runMehlikaReward.noticeTimer=setTimeout(()=>{
+    notice.classList.add('show');
+    if('vibrate' in navigator){try{navigator.vibrate([90,60,90]);}catch{}}
+    if(typeof window.beep==='function'){
+      window.beep(523,.14,'sine',.024);
+      setTimeout(()=>window.beep(659,.14,'sine',.02),120);
+      setTimeout(()=>window.beep(880,.18,'sine',.022),240);
+    }
+  },2200);
+}
+function startFireworks(canvas,duration){
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');if(!ctx)return;
+  const dpr=Math.min(devicePixelRatio||1,1.6);
+  const rect=canvas.getBoundingClientRect();
+  canvas.width=Math.floor(rect.width*dpr);canvas.height=Math.floor(rect.height*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  const W=rect.width,H=rect.height;
+  const parts=[];const starts=6;
+  function burst(){
+    const cx=W*(.18+.64*Math.random()),cy=H*(.16+.5*Math.random());
+    const base=28+Math.random()*20;
+    for(let i=0;i<base;i++){
+      const a=(Math.PI*2/base)*i+Math.random()*.15;
+      const sp=2.4+Math.random()*3.4;
+      parts.push({x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,size:1+Math.random()*2,h:190+Math.random()*45});
+    }
+  }
+  for(let i=0;i<starts;i++)setTimeout(burst,i*220);
+  const start=performance.now();
+  function frame(now){
+    ctx.clearRect(0,0,W,H);
+    for(let i=parts.length-1;i>=0;i--){
+      const q=parts[i];q.x+=q.vx;q.y+=q.vy;q.vy+=.045;q.vx*=.992;q.vy*=.992;q.life-=.018;
+      if(q.life<=0){parts.splice(i,1);continue}
+      ctx.globalAlpha=Math.max(0,q.life*.85);
+      ctx.fillStyle=`hsla(${q.h},95%,78%,${Math.max(0,q.life)})`;
+      ctx.shadowBlur=10;ctx.shadowColor='rgba(90,210,255,.95)';
+      ctx.beginPath();ctx.arc(q.x,q.y,q.size,0,Math.PI*2);ctx.fill();
+    }
+    ctx.shadowBlur=0;
+    if(now-start<duration || parts.length){requestAnimationFrame(frame)}else{ctx.clearRect(0,0,W,H)}
+  }
+  requestAnimationFrame(frame);
+}
+function closeMehlikaReward(){
+  const overlay=document.getElementById('mehlikaSequence');
+  const notice=document.getElementById('mehlikaNotice');
+  if(!overlay)return;
+  clearTimeout(runMehlikaReward.noticeTimer);
+  notice?.classList.remove('show');
+  overlay.classList.remove('active');
+  overlay.setAttribute('aria-hidden','true');
+  const canvas=document.getElementById('fireworksCanvas');
+  if(canvas){const c=canvas.getContext('2d');c?.clearRect(0,0,canvas.width,canvas.height)}
+  if('vibrate' in navigator){try{navigator.vibrate(35)}catch{}}
+  showToast('SİSTEM NORMAL MODA DÖNDÜ');
+}
+
 function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
 function liveClock(){const t=new Date().toLocaleTimeString('tr-TR',{hour12:false});document.getElementById('liveTime').textContent=t;const sc=document.getElementById('shopPageClock');if(sc)sc.textContent=t}
 function makeParticles(){const root=document.getElementById('particles');let h='';for(let i=0;i<30;i++){const left=Math.random()*100,dur=10+Math.random()*15,delay=-Math.random()*15,size=1+Math.random()*2;h+=`<i class="particle" style="left:${left}%;width:${size}px;height:${size}px;animation-duration:${dur}s;animation-delay:${delay}s"></i>`}root.innerHTML=h}
@@ -882,7 +1057,7 @@ document.getElementById('shopSearch').addEventListener('input',renderShop);
 document.getElementById('shopDetailClose').addEventListener('click',closeShopDetail);
 document.getElementById('shopDetailCancel').addEventListener('click',closeShopDetail);
 document.getElementById('shopDetailBuy').addEventListener('click',()=>{if(selectedShopId)buyItem(selectedShopId)});
-document.getElementById('shopDetailModal').addEventListener('click',e=>{if(e.target.id==='shopDetailModal')closeShopDetail();});document.getElementById('redeemCodeBtn').addEventListener('click',redeemCode);document.getElementById('redeemCodeInput').addEventListener('keydown',e=>{if(e.key==='Enter')redeemCode();});
+document.getElementById('shopDetailModal').addEventListener('click',e=>{if(e.target.id==='shopDetailModal')closeShopDetail();});document.getElementById('mehlikaNoticeClose')?.addEventListener('click',closeMehlikaReward);document.getElementById('redeemCodeBtn').addEventListener('click',redeemCode);document.getElementById('redeemCodeInput').addEventListener('keydown',e=>{if(e.key==='Enter')redeemCode();});
 document.getElementById('addTaskBtn').addEventListener('click',()=>document.getElementById('modalWrap').classList.add('open'));['modalClose','modalCancel'].forEach(id=>document.getElementById(id).addEventListener('click',()=>document.getElementById('modalWrap').classList.remove('open')));document.getElementById('createTask').addEventListener('click',()=>{const name=document.getElementById('newTaskName').value.trim(),xp=Math.max(5,Math.min(1000,Number(document.getElementById('newTaskXp').value)||50));if(!name){showToast('GÖREV ADI GEREKLİ');return}state.tasks.push({id:'custom_'+Date.now(),name,xp,tag:'ÖZEL',unit:'hedef tamamla'});document.getElementById('newTaskName').value='';document.getElementById('newTaskXp').value='50';document.getElementById('modalWrap').classList.remove('open');save();render();showReward('YENİ GÖREV EKLENDİ','Görev sisteme başarıyla eklendi.')});
 document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('Tüm sistem ilerlemesi silinecek. Devam edilsin mi?')){state=freshState();save();render();showToast('SİSTEM SIFIRLANDI')}});document.getElementById('resetProgress').addEventListener('click',()=>{if(confirm('XP, seri, görev ilerlemesi ve jetonlar silinecek. Profil fotoğrafı ve Google bağlantısı korunacak. Devam edilsin mi?')){const keep={name:state.name,goal:state.goal,penalty:state.penalty,avatarData:state.avatarData,google:state.google};state={...freshState(),...keep};save();render();showToast('İLERLEME TEMİZLENDİ')}});document.getElementById('applyDemo').addEventListener('click',()=>{state=freshState();state.name='Sistem Oyuncusu';state.xp=72;state.totalXp=572;state.coins=180;state.level=3;state.todayXp=120;state.totalCompleted=14;state.currentStreak=4;state.longestStreak=4;state.todayDone=['push','squat','water'];state.lastCompletedDate=todayKey();addActivity('Demo profil yüklendi','info');save();render();showToast('DEMO PROFİLİ YÜKLENDİ')});
 /* normal PC imleci */
